@@ -21,11 +21,6 @@
   </notepads>
   <order>
     <hop>
-      <from>Preview</from>
-      <to>Clean Up</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Lookup Film &amp; Store Keys</from>
       <to>Lookup Customer TK</to>
       <enabled>Y</enabled>
@@ -76,13 +71,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Clean Up</from>
+      <from>Preview</from>
+      <to>Date TKs</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Date TKs</from>
       <to>Rentals Fact</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Clean Up</name>
+    <name>Date TKs</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -94,37 +94,118 @@
     </partitioning>
     <fields>
       <field>
-        <name>rental_id</name>
-      </field>
-      <field>
         <name>rental_date</name>
+        <rename>rental_date_tk</rename>
       </field>
       <field>
         <name>return_date</name>
+        <rename>return_date_tk</rename>
       </field>
       <field>
-        <name>last_update</name>
+        <name>rental_date</name>
+        <rename>rental_time_tk</rename>
+      </field>
+      <field>
+        <name>return_date</name>
+        <rename>return_time_tk</rename>
       </field>
       <field>
         <name>rental_duration</name>
+        <rename/>
       </field>
       <field>
         <name>customer_tk</name>
+        <rename/>
       </field>
       <field>
         <name>staff_tk</name>
+        <rename/>
       </field>
       <field>
         <name>store_tk</name>
+        <rename/>
       </field>
       <field>
         <name>film_tk</name>
+        <rename/>
+      </field>
+      <field>
+        <name>rental_id</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>rental_date_tk</name>
+        <rename>rental_date_tk</rename>
+        <type>String</type>
+        <length>0</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyyMMdd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>return_date_tk</name>
+        <rename>return_date_tk</rename>
+        <type>String</type>
+        <length>0</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyyMMdd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>rental_time_tk</name>
+        <rename>rental_time_tk</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>HHmmss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>return_time_tk</name>
+        <rename>return_time_tk</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>HHmmss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1568</xloc>
+      <xloc>1600</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -488,18 +569,23 @@ FROM sakila.rental
       <schema/>
       <table>fact_rentals</table>
       <value>
-        <name>rental_date</name>
-        <rename>rental_date</rename>
+        <name>rental_date_tk</name>
+        <rename>rental_date_tk</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>return_date</name>
-        <rename>return_date</rename>
+        <name>return_date_tk</name>
+        <rename>return_date_tk</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>last_update</name>
-        <rename>last_update</rename>
+        <name>rental_time_tk</name>
+        <rename>rental_time_tk</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>return_time_tk</name>
+        <rename>return_time_tk</rename>
         <update>Y</update>
       </value>
       <value>
@@ -531,7 +617,7 @@ FROM sakila.rental
     <update_bypassed>N</update_bypassed>
     <attributes/>
     <GUI>
-      <xloc>1728</xloc>
+      <xloc>1952</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

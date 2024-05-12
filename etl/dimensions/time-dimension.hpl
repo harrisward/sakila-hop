@@ -92,42 +92,6 @@
     </GUI>
   </transform>
   <transform>
-    <name>Time Calculations</name>
-    <type>SuperScript</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <length>-1</length>
-        <name>TIME_TK</name>
-        <precision>-1</precision>
-        <rename>TIME_TK</rename>
-        <replace>N</replace>
-        <scriptResult>N</scriptResult>
-        <type>Integer</type>
-      </field>
-    </fields>
-    <scriptLanguage>ECMAScript</scriptLanguage>
-    <scripts>
-      <script>
-        <scriptBody>TIME_TK = ''+HOUR+MINUTE+SECOND</scriptBody>
-        <scriptName>script1</scriptName>
-        <scriptType>0</scriptType>
-      </script>
-    </scripts>
-    <attributes/>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>352</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>Generate Hours</name>
     <type>RowGenerator</type>
     <description/>
@@ -277,6 +241,42 @@
     <GUI>
       <xloc>288</xloc>
       <yloc>480</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Time Calculations</name>
+    <type>SuperScript</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>TIME_TK</name>
+        <precision>-1</precision>
+        <rename>TIME_TK</rename>
+        <replace>N</replace>
+        <scriptResult>N</scriptResult>
+        <type>String</type>
+      </field>
+    </fields>
+    <scriptLanguage>ECMAScript</scriptLanguage>
+    <scripts>
+      <script>
+        <scriptBody>TIME_TK = ''+HOUR+MINUTE+SECOND</scriptBody>
+        <scriptName>script1</scriptName>
+        <scriptType>0</scriptType>
+      </script>
+    </scripts>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>352</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
