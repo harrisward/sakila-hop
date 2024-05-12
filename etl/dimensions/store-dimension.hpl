@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pipeline>
   <info>
-    <name>customer-dimension</name>
+    <name>store-dimension</name>
     <name_sync_with_filename>Y</name_sync_with_filename>
     <description/>
     <extended_description/>
@@ -13,26 +13,26 @@
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
     <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
     <created_user>-</created_user>
-    <created_date>2024/05/09 22:17:30.785</created_date>
+    <created_date>2024/05/11 11:03:28.726</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2024/05/09 22:17:30.785</modified_date>
+    <modified_date>2024/05/11 11:03:28.726</modified_date>
   </info>
   <notepads>
   </notepads>
   <order>
     <hop>
-      <from>Preview</from>
-      <to>Populate Customer Dimension</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Max Date</from>
-      <to>Customers</to>
+      <to>Store</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Customers</from>
-      <to>Map Address</to>
+      <from>Preview</from>
+      <to>Store Dimension</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Store</from>
+      <to>Lookup Manager</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -40,9 +40,75 @@
       <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Lookup Manager</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Map Address</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
-    <name>Customers</name>
+    <name>Lookup Manager</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <connection>Sakila Source</connection>
+    <lookup>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <fail_on_multiple>N</fail_on_multiple>
+      <key>
+        <condition>=</condition>
+        <field>staff_id</field>
+        <name>manager_staff_id</name>
+      </key>
+      <schema>sakila</schema>
+      <table>staff</table>
+      <value>
+        <name>first_name</name>
+        <rename>first_name</rename>
+        <trim_type>none</trim_type>
+        <type>String</type>
+      </value>
+      <value>
+        <name>last_name</name>
+        <rename>last_name</rename>
+        <trim_type>none</trim_type>
+        <type>String</type>
+      </value>
+      <value>
+        <name>email</name>
+        <rename>email</rename>
+        <trim_type>none</trim_type>
+        <type>String</type>
+      </value>
+      <value>
+        <name>active</name>
+        <rename>active</rename>
+        <trim_type>none</trim_type>
+        <type>Boolean</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Max Date</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -52,27 +118,77 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Sakila Source</connection>
+    <connection>Sakila DWH</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <lookup>Max Date</lookup>
-    <sql>SELECT
-  customer_id
-, store_id
-, first_name
-, last_name
-, email
-, address_id
-, active
-, create_date
-, last_update
-FROM sakila.customer
-WHERE last_update > ?
+    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_store_last_update
+FROM sakila_dwh.dim_store
 </sql>
-    <variables_active>Y</variables_active>
+    <variables_active>N</variables_active>
     <attributes/>
     <GUI>
-      <xloc>288</xloc>
+      <xloc>128</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Preview</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>1024</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>store_id</name>
+      </field>
+      <field>
+        <name>manager_staff_id</name>
+      </field>
+      <field>
+        <name>address_id</name>
+      </field>
+      <field>
+        <name>last_update</name>
+      </field>
+      <field>
+        <name>first_name</name>
+      </field>
+      <field>
+        <name>last_name</name>
+      </field>
+      <field>
+        <name>email</name>
+      </field>
+      <field>
+        <name>active</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>640</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -120,12 +236,12 @@ WHERE last_update > ?
     <runConfiguration>local</runConfiguration>
     <attributes/>
     <GUI>
-      <xloc>512</xloc>
+      <xloc>800</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Max Date</name>
+    <name>Store</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -135,21 +251,27 @@ WHERE last_update > ?
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Sakila DWH</connection>
+    <connection>Sakila Source</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_customer_last_update
-FROM sakila_dwh.dim_customer
+    <lookup>Max Date</lookup>
+    <sql>SELECT
+  store_id
+, manager_staff_id
+, address_id
+, last_update
+FROM sakila.store
+where last_update > ?
 </sql>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <attributes/>
     <GUI>
-      <xloc>128</xloc>
+      <xloc>288</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Populate Customer Dimension</name>
+    <name>Store Dimension</name>
     <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -168,8 +290,8 @@ FROM sakila_dwh.dim_customer
         <to>date_to</to>
       </date>
       <field>
-        <lookup>store_id</lookup>
-        <name>store_id</name>
+        <lookup>last_update</lookup>
+        <name>last_update</name>
         <update>Insert</update>
       </field>
       <field>
@@ -188,62 +310,30 @@ FROM sakila_dwh.dim_customer
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address_id</lookup>
-        <name>address_id</name>
-        <update>Insert</update>
-      </field>
-      <field>
         <lookup>active</lookup>
         <name>active</name>
         <update>Insert</update>
       </field>
-      <field>
-        <lookup>create_date</lookup>
-        <name>create_date</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>last_update</lookup>
-        <name>last_update</name>
-        <update>Insert</update>
-      </field>
       <key>
-        <lookup>customer_id</lookup>
-        <name>customer_id</name>
+        <lookup>store_id</lookup>
+        <name>store_id</name>
       </key>
       <return>
         <creation_method>tablemax</creation_method>
-        <name>customer_tk</name>
+        <name>store_tk</name>
         <version>version</version>
       </return>
     </fields>
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
-    <table>dim_customer</table>
+    <table>dim_store</table>
     <update>Y</update>
     <useBatch>N</useBatch>
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>896</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Preview</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <GUI>
-      <xloc>736</xloc>
+      <xloc>1184</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

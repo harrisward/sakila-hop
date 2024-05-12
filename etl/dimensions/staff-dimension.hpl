@@ -35,6 +35,11 @@
       <to>Dimension lookup/update</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Max Date</from>
+      <to>Staff</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>Dimension lookup/update</name>
@@ -109,7 +114,7 @@
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>768</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -126,7 +131,7 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>608</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -170,7 +175,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>288</xloc>
+      <xloc>448</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -188,6 +193,7 @@
     <connection>Sakila Source</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
+    <lookup>Max Date</lookup>
     <sql>SELECT
   staff_id
 , first_name
@@ -201,6 +207,31 @@
 , password
 , last_update
 FROM sakila.staff
+WHERE last_update > ?
+</sql>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Max Date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila DWH</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_staff_last_update
+FROM sakila_dwh.dim_staff
 </sql>
     <variables_active>N</variables_active>
     <attributes/>

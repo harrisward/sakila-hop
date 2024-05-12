@@ -36,7 +36,7 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1728</xloc>
+      <xloc>1920</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -52,8 +52,6 @@
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
       <filename>${PROJECT_HOME}/etl/dimensions/date-dimension.hpl</filename>
-      <logext/>
-      <logfile/>
       <loglevel>Basic</loglevel>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -64,7 +62,7 @@
       <set_logfile>N</set_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <parallel>N</parallel>
-      <xloc>768</xloc>
+      <xloc>608</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -80,8 +78,6 @@
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
       <filename>${PROJECT_HOME}/etl/dimensions/staff-dimension.hpl</filename>
-      <logext/>
-      <logfile/>
       <loglevel>Basic</loglevel>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -108,8 +104,6 @@
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
       <filename>${PROJECT_HOME}/etl/dimensions/customer-dimension.hpl</filename>
-      <logext/>
-      <logfile/>
       <loglevel>Basic</loglevel>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -147,8 +141,6 @@
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
       <filename>${PROJECT_HOME}/etl/facts/rentals-fact.hpl</filename>
-      <logext/>
-      <logfile/>
       <loglevel>Basic</loglevel>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
@@ -159,7 +151,7 @@
       <set_logfile>N</set_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <parallel>N</parallel>
-      <xloc>1504</xloc>
+      <xloc>1568</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -185,7 +177,7 @@
         </field>
       </fields>
       <parallel>N</parallel>
-      <xloc>352</xloc>
+      <xloc>288</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -201,7 +193,7 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <sqlfromfile>N</sqlfromfile>
       <useVariableSubstitution>N</useVariableSubstitution>
       <parallel>N</parallel>
-      <xloc>544</xloc>
+      <xloc>448</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -217,6 +209,58 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
       <filename>${PROJECT_HOME}/etl/dimensions/film-dimension.hpl</filename>
+      <loglevel>Basic</loglevel>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <params_from_previous>N</params_from_previous>
+      <run_configuration>local</run_configuration>
+      <set_append_logfile>N</set_append_logfile>
+      <set_logfile>N</set_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <parallel>N</parallel>
+      <xloc>1408</xloc>
+      <yloc>224</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>time-dimension.hpl</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <clear_files>N</clear_files>
+      <clear_rows>N</clear_rows>
+      <create_parent_folder>N</create_parent_folder>
+      <exec_per_row>N</exec_per_row>
+      <filename>${PROJECT_HOME}/etl/dimensions/time-dimension.hpl</filename>
+      <loglevel>Basic</loglevel>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <params_from_previous>N</params_from_previous>
+      <run_configuration>local</run_configuration>
+      <set_append_logfile>N</set_append_logfile>
+      <set_logfile>N</set_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <parallel>N</parallel>
+      <xloc>768</xloc>
+      <yloc>224</yloc>
+      <attributes_hac/>
+    </action>
+    <action>
+      <name>Store Dimension</name>
+      <description/>
+      <type>PIPELINE</type>
+      <attributes/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <clear_files>N</clear_files>
+      <clear_rows>N</clear_rows>
+      <create_parent_folder>N</create_parent_folder>
+      <exec_per_row>N</exec_per_row>
+      <filename>${PROJECT_HOME}/etl/dimensions/customer-dimension.hpl</filename>
       <logext/>
       <logfile/>
       <loglevel>Basic</loglevel>
@@ -229,19 +273,12 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <set_logfile>N</set_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <parallel>N</parallel>
-      <xloc>1280</xloc>
+      <xloc>1248</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
   </actions>
   <hops>
-    <hop>
-      <from>date-dimension.hpl</from>
-      <to>staff-dimension.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>staff-dimension.hpl</from>
       <to>customer-dimension.hpl</to>
@@ -306,13 +343,6 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>customer-dimension.hpl</from>
-      <to>film-dimension.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>film-dimension.hpl</from>
       <to>rentals-fact.hpl</to>
       <enabled>Y</enabled>
@@ -321,6 +351,48 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
     </hop>
     <hop>
       <from>film-dimension.hpl</from>
+      <to>Abort workflow</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>date-dimension.hpl</from>
+      <to>time-dimension.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>time-dimension.hpl</from>
+      <to>staff-dimension.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>time-dimension.hpl</from>
+      <to>Abort workflow</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>customer-dimension.hpl</from>
+      <to>Store Dimension</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Store Dimension</from>
+      <to>film-dimension.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Store Dimension</from>
       <to>Abort workflow</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
