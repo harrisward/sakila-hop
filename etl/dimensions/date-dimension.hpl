@@ -31,11 +31,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Calculate Dates</from>
-      <to>Date TK String</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Date TK String</from>
       <to>Date TK Integer</to>
       <enabled>Y</enabled>
@@ -43,6 +38,16 @@
     <hop>
       <from>Date TK Integer</from>
       <to>Populate Date Dimension</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calculate Dates</from>
+      <to>Date Calculations</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Date Calculations</from>
+      <to>Date TK String</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -150,7 +155,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -200,7 +205,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>768</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -266,7 +271,34 @@
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>1088</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Date Calculations</name>
+    <type>SuperScript</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+</fields>
+    <scriptLanguage>ECMAScript</scriptLanguage>
+    <scripts>
+      <script>
+        <scriptBody/>
+        <scriptName>script1</scriptName>
+        <scriptType>0</scriptType>
+      </script>
+    </scripts>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

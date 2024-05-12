@@ -83,6 +83,7 @@
         <operator>-</operator>
       </condition>
     </compare>
+    <send_false_to>Preview</send_false_to>
     <send_true_to>Concat Address</send_true_to>
     <attributes/>
     <GUI>

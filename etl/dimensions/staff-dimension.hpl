@@ -21,18 +21,13 @@
   </notepads>
   <order>
     <hop>
-      <from>Staff</from>
-      <to>Remove Fields</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Remove Fields</from>
       <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Preview</from>
-      <to>Dimension lookup/update</to>
+      <to>Populate Staff Dimension</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -40,9 +35,72 @@
       <to>Staff</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Staff</from>
+      <to>Map Active</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Map Active</from>
+      <to>Remove Fields</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
-    <name>Dimension lookup/update</name>
+    <name>Map Active</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>active</field_to_use>
+    <fields>
+      <field>
+        <source_value>N</source_value>
+        <target_value>No</target_value>
+      </field>
+      <field>
+        <source_value>Y</source_value>
+        <target_value>Yes</target_value>
+      </field>
+    </fields>
+    <target_field>staff_active</target_field>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Max Date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila DWH</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_staff_last_update
+FROM sakila_dwh.dim_staff
+</sql>
+    <variables_active>N</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Populate Staff Dimension</name>
     <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -114,7 +172,7 @@
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -131,7 +189,7 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>768</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -175,7 +233,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>608</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -213,30 +271,6 @@ WHERE last_update > ?
     <attributes/>
     <GUI>
       <xloc>288</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Max Date</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Sakila DWH</connection>
-    <execute_each_row>N</execute_each_row>
-    <limit>0</limit>
-    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_staff_last_update
-FROM sakila_dwh.dim_staff
-</sql>
-    <variables_active>N</variables_active>
-    <attributes/>
-    <GUI>
-      <xloc>128</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

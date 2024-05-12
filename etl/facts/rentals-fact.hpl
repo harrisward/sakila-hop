@@ -21,7 +21,12 @@
   </notepads>
   <order>
     <hop>
-      <from>Rentals</from>
+      <from>Preview</from>
+      <to>Clean Up</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lookup Film &amp; Store Keys</from>
       <to>Lookup Customer TK</to>
       <enabled>Y</enabled>
     </hop>
@@ -32,22 +37,52 @@
     </hop>
     <hop>
       <from>Lookup Staff TK</from>
+      <to>Lookup Store TK</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lookup Store TK</from>
+      <to>Lookup Film TK</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lookup Film TK</from>
       <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Preview</from>
-      <to>Data Types</to>
+      <from>Rentals</from>
+      <to>Rental Duration?</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Data Types</from>
-      <to>Fact Rentals</to>
+      <from>Rental Duration?</from>
+      <to>Null Rental Duration</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Rental Duration?</from>
+      <to>Rental Duration</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Rental Duration</from>
+      <to>Lookup Film &amp; Store Keys</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Null Rental Duration</from>
+      <to>Lookup Film &amp; Store Keys</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Clean Up</from>
+      <to>Rentals Fact</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Data Types</name>
+    <name>Clean Up</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -65,217 +100,31 @@
         <name>rental_date</name>
       </field>
       <field>
-        <name>inventory_id</name>
-      </field>
-      <field>
-        <name>customer_id</name>
-      </field>
-      <field>
         <name>return_date</name>
       </field>
       <field>
-        <name>staff_id</name>
+        <name>last_update</name>
       </field>
       <field>
-        <name>last_update</name>
+        <name>rental_duration</name>
       </field>
       <field>
         <name>customer_tk</name>
       </field>
       <field>
         <name>staff_tk</name>
+      </field>
+      <field>
+        <name>store_tk</name>
+      </field>
+      <field>
+        <name>film_tk</name>
       </field>
       <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>rental_id</name>
-        <rename>rental_id</rename>
-        <type>Integer</type>
-        <length>9</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>rental_date</name>
-        <rename>rental_date</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>inventory_id</name>
-        <rename>inventory_id</rename>
-        <type>Integer</type>
-        <length>9</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>customer_id</name>
-        <rename>customer_id</rename>
-        <type>Integer</type>
-        <length>4</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>return_date</name>
-        <rename>return_date</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>staff_id</name>
-        <rename>staff_id</rename>
-        <type>Integer</type>
-        <length>2</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>last_update</name>
-        <rename>last_update</rename>
-        <type>Date</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>customer_tk</name>
-        <rename>customer_tk</rename>
-        <type>Integer</type>
-        <length>9</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-      <meta>
-        <name>staff_tk</name>
-        <rename>staff_tk</rename>
-        <type>Integer</type>
-        <length>9</length>
-        <precision>0</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Fact Rentals</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <commit>1000</commit>
-    <connection>Sakila DWH</connection>
-    <fields>
-</fields>
-    <ignore_errors>N</ignore_errors>
-    <only_when_have_rows>N</only_when_have_rows>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <return_keys>N</return_keys>
-    <specify_fields>N</specify_fields>
-    <table>fact_rentals</table>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_in_table>Y</tablename_in_table>
-    <truncate>Y</truncate>
-    <use_batch>Y</use_batch>
-    <attributes/>
-    <GUI>
-      <xloc>928</xloc>
+      <xloc>1568</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -318,7 +167,84 @@
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>288</xloc>
+      <xloc>768</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Lookup Film &amp; Store Keys</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <connection>Sakila Source</connection>
+    <lookup>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <fail_on_multiple>N</fail_on_multiple>
+      <key>
+        <condition>=</condition>
+        <field>inventory_id</field>
+        <name>inventory_id</name>
+      </key>
+      <table>inventory</table>
+      <value>
+        <name>film_id</name>
+        <trim_type>none</trim_type>
+        <type>Integer</type>
+      </value>
+      <value>
+        <name>store_id</name>
+        <trim_type>none</trim_type>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Lookup Film TK</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <connection>Sakila DWH</connection>
+    <lookup>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <fail_on_multiple>N</fail_on_multiple>
+      <key>
+        <condition>=</condition>
+        <field>film_id</field>
+        <name>film_id</name>
+      </key>
+      <table>dim_film</table>
+      <value>
+        <name>film_tk</name>
+        <trim_type>none</trim_type>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>1248</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -361,8 +287,77 @@
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>928</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Lookup Store TK</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache_size>5000</cache_size>
+    <commit>100</commit>
+    <connection>Sakila DWH</connection>
+    <fields>
+      <date>
+        <from>date_from</from>
+        <to>date_to</to>
+      </date>
+      <key>
+        <lookup>store_id</lookup>
+        <name>store_id</name>
+      </key>
+      <return>
+        <creation_method>tablemax</creation_method>
+        <name>store_tk</name>
+        <version>version</version>
+      </return>
+    </fields>
+    <max_year>2199</max_year>
+    <min_year>1900</min_year>
+    <preload_cache>N</preload_cache>
+    <schema>sakila_dwh</schema>
+    <table>dim_store</table>
+    <update>N</update>
+    <useBatch>N</useBatch>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <attributes/>
+    <GUI>
+      <xloc>1088</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Null Rental Duration</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>rental_duration</name>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <type>Integer</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>352</yloc>
     </GUI>
   </transform>
   <transform>
@@ -378,7 +373,64 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>1408</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Rental Duration</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <calculation>
+      <calc_type>DATE_DIFF</calc_type>
+      <field_a>return_date</field_a>
+      <field_b>rental_date</field_b>
+      <field_name>rental_duration</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <failIfNoFile>Y</failIfNoFile>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Rental Duration?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compare>
+      <condition>
+        <conditions>
+</conditions>
+        <function>IS NULL</function>
+        <leftvalue>return_date</leftvalue>
+        <negated>N</negated>
+        <operator>-</operator>
+      </condition>
+    </compare>
+    <send_false_to>Rental Duration</send_false_to>
+    <send_true_to>Null Rental Duration</send_true_to>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -410,6 +462,76 @@ FROM sakila.rental
     <attributes/>
     <GUI>
       <xloc>128</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Rentals Fact</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <commit>100</commit>
+    <connection>Sakila DWH</connection>
+    <lookup>
+      <key>
+        <condition>=</condition>
+        <field>rental_id</field>
+        <name>rental_id</name>
+        <name2/>
+      </key>
+      <schema/>
+      <table>fact_rentals</table>
+      <value>
+        <name>rental_date</name>
+        <rename>rental_date</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>return_date</name>
+        <rename>return_date</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>last_update</name>
+        <rename>last_update</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>rental_duration</name>
+        <rename>rental_duration</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>customer_tk</name>
+        <rename>customer_tk</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>staff_tk</name>
+        <rename>staff_tk</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>store_tk</name>
+        <rename>store_tk</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>film_tk</name>
+        <rename>film_tk</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <update_bypassed>N</update_bypassed>
+    <attributes/>
+    <GUI>
+      <xloc>1728</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

@@ -250,7 +250,7 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <attributes_hac/>
     </action>
     <action>
-      <name>Store Dimension</name>
+      <name>store-dimension.hpl</name>
       <description/>
       <type>PIPELINE</type>
       <attributes/>
@@ -260,7 +260,7 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <clear_rows>N</clear_rows>
       <create_parent_folder>N</create_parent_folder>
       <exec_per_row>N</exec_per_row>
-      <filename>${PROJECT_HOME}/etl/dimensions/customer-dimension.hpl</filename>
+      <filename>${PROJECT_HOME}/etl/dimensions/store-dimension.hpl</filename>
       <logext/>
       <logfile/>
       <loglevel>Basic</loglevel>
@@ -379,20 +379,20 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
     </hop>
     <hop>
       <from>customer-dimension.hpl</from>
-      <to>Store Dimension</to>
+      <to>store-dimension.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Store Dimension</from>
+      <from>store-dimension.hpl</from>
       <to>film-dimension.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Store Dimension</from>
+      <from>store-dimension.hpl</from>
       <to>Abort workflow</to>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
