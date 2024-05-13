@@ -205,7 +205,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1600</xloc>
+      <xloc>1568</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -617,7 +617,7 @@ FROM sakila.rental
     <update_bypassed>N</update_bypassed>
     <attributes/>
     <GUI>
-      <xloc>1952</xloc>
+      <xloc>1728</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
