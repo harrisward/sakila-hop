@@ -21,19 +21,9 @@
   </notepads>
   <order>
     <hop>
-      <from>Remove Fields</from>
-      <to>Preview</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Preview</from>
-      <to>Populate Staff Dimension</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Max Date</from>
       <to>Staff</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Staff</from>
@@ -53,6 +43,11 @@
     <hop>
       <from>Full Name</from>
       <to>Map Address</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Remove Fields</from>
+      <to>Populate Staff Dimension</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -180,8 +175,8 @@
     <limit>0</limit>
     <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_staff_last_update
 FROM sakila_dwh.dim_staff
-</sql>
-    <variables_active>N</variables_active>
+WHERE last_update > ?</sql>
+    <variables_active>Y</variables_active>
     <attributes/>
     <GUI>
       <xloc>128</xloc>
@@ -218,28 +213,58 @@ FROM sakila_dwh.dim_staff
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address_id</lookup>
-        <name>address_id</name>
-        <update>Insert</update>
-      </field>
-      <field>
         <lookup>email</lookup>
         <name>email</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>store_id</lookup>
-        <name>store_id</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>active</lookup>
-        <name>active</name>
-        <update>Insert</update>
-      </field>
-      <field>
         <lookup>last_update</lookup>
         <name>last_update</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>staff_active</lookup>
+        <name>staff_active</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>full_name</lookup>
+        <name>full_name</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>address</lookup>
+        <name>address</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>district</lookup>
+        <name>district</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>postal_code</lookup>
+        <name>postal_code</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>phone</lookup>
+        <name>phone</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>location</lookup>
+        <name>location</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>city</lookup>
+        <name>city</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>country</lookup>
+        <name>country</name>
         <update>Insert</update>
       </field>
       <key>
@@ -259,23 +284,6 @@ FROM sakila_dwh.dim_staff
     <update>Y</update>
     <useBatch>N</useBatch>
     <use_start_date_alternative>N</use_start_date_alternative>
-    <attributes/>
-    <GUI>
-      <xloc>1248</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Preview</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
     <attributes/>
     <GUI>
       <xloc>1088</xloc>
@@ -358,6 +366,7 @@ FROM sakila_dwh.dim_staff
     <connection>Sakila Source</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
+    <lookup>Max Date</lookup>
     <sql>SELECT
   staff_id
 , first_name
@@ -373,7 +382,7 @@ FROM sakila_dwh.dim_staff
 FROM sakila.staff
 
 </sql>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <attributes/>
     <GUI>
       <xloc>288</xloc>

@@ -21,19 +21,14 @@
   </notepads>
   <order>
     <hop>
-      <from>Preview</from>
-      <to>Populate Customer Dimension</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Max Date</from>
       <to>Customers</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Customers</from>
       <to>Map Address</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Map Address</from>
@@ -41,11 +36,114 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Customers 2</from>
+      <to>Map Address</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Map Active</from>
+      <to>Lowercase Names</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lowercase Names</from>
+      <to>Full Name</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Full Name</from>
       <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Preview</from>
+      <to>Remove Fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Remove Fields</from>
+      <to>Populate Customer Dimension</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Data grid</from>
+      <to>Add constants</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Add constants</from>
+      <to>Concat Fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Concat Fields</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <transform>
+    <name>Add constants</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>const</name>
+        <nullif>customer_</nullif>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <type>String</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1024</xloc>
+      <yloc>480</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Concat Fields</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <ConcatFields>
+      <removeSelectedFields>N</removeSelectedFields>
+      <targetFieldLength>0</targetFieldLength>
+      <targetFieldName>new_field</targetFieldName>
+    </ConcatFields>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>const</name>
+        <precision>-1</precision>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <name>fieldname</name>
+        <precision>-1</precision>
+        <type>String</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1248</xloc>
+      <yloc>480</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Customers</name>
     <type>TableInput</type>
@@ -78,6 +176,205 @@ WHERE last_update > ?
     <attributes/>
     <GUI>
       <xloc>288</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Customers 2</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila Source</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT
+  customer_id
+, store_id
+, first_name
+, last_name
+, email
+, address_id
+, active
+, create_date
+, last_update
+FROM sakila.customer</sql>
+    <variables_active>N</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>352</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Data grid</name>
+    <type>DataGrid</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <data>
+      <line>
+        <item>customer_id</item>
+      </line>
+      <line>
+        <item>first_name</item>
+      </line>
+      <line>
+        <item>last_name</item>
+      </line>
+      <line>
+        <item>email</item>
+      </line>
+      <line>
+        <item>last_update</item>
+      </line>
+      <line>
+        <item>address</item>
+      </line>
+      <line>
+        <item>district</item>
+      </line>
+      <line>
+        <item>postal_code</item>
+      </line>
+      <line>
+        <item>phone</item>
+      </line>
+      <line>
+        <item>location</item>
+      </line>
+      <line>
+        <item>city</item>
+      </line>
+      <line>
+        <item>country</item>
+      </line>
+      <line>
+        <item>customer_active</item>
+      </line>
+      <line>
+        <item>full_name</item>
+      </line>
+    </data>
+    <fields>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>fieldname</name>
+        <type>String</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>800</xloc>
+      <yloc>480</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Full Name</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <ConcatFields>
+      <removeSelectedFields>N</removeSelectedFields>
+      <targetFieldLength>0</targetFieldLength>
+      <targetFieldName>full_name</targetFieldName>
+    </ConcatFields>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>first_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <name>last_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+    </fields>
+    <separator> </separator>
+    <attributes/>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Lowercase Names</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>first_name</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>lower</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>yes</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>last_name</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>lower</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>yes</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>email</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>lower</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>768</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -195,46 +492,72 @@ FROM sakila_dwh.dim_customer
     <fields>
       <date>
         <from>date_from</from>
+        <name/>
         <to>date_to</to>
       </date>
       <field>
-        <lookup>store_id</lookup>
-        <name>store_id</name>
+        <lookup>customer_full_name</lookup>
+        <name>customer_full_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>first_name</lookup>
-        <name>first_name</name>
+        <lookup>customer_active</lookup>
+        <name>customer_active</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_name</lookup>
-        <name>last_name</name>
+        <lookup>customer_country</lookup>
+        <name>customer_country</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>email</lookup>
-        <name>email</name>
+        <lookup>customer_city</lookup>
+        <name>customer_city</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address_id</lookup>
-        <name>address_id</name>
+        <lookup>customer_location</lookup>
+        <name>customer_location</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>active</lookup>
-        <name>active</name>
+        <lookup>customer_phone</lookup>
+        <name>customer_phone</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>create_date</lookup>
-        <name>create_date</name>
+        <lookup>customer_postal_code</lookup>
+        <name>customer_postal_code</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_update</lookup>
-        <name>last_update</name>
+        <lookup>customer_district</lookup>
+        <name>customer_district</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>customer_address</lookup>
+        <name>customer_address</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>customer_last_update</lookup>
+        <name>customer_last_update</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>customer_email</lookup>
+        <name>customer_email</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>customer_last_name</lookup>
+        <name>customer_last_name</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>customer_first_name</lookup>
+        <name>customer_first_name</name>
         <update>Insert</update>
       </field>
       <key>
@@ -244,19 +567,23 @@ FROM sakila_dwh.dim_customer
       <return>
         <creation_method>tablemax</creation_method>
         <name>customer_tk</name>
+        <rename/>
         <version>version</version>
       </return>
     </fields>
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
+    <schema/>
+    <sequence/>
+    <start_date_field_name/>
     <table>dim_customer</table>
     <update>Y</update>
     <useBatch>N</useBatch>
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>1408</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -273,8 +600,110 @@ FROM sakila_dwh.dim_customer
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>1088</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Remove Fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>full_name</name>
+        <rename>customer_full_name</rename>
+      </field>
+      <field>
+        <name>customer_active</name>
+        <rename>customer_active</rename>
+      </field>
+      <field>
+        <name>country</name>
+        <rename>customer_country</rename>
+      </field>
+      <field>
+        <name>city</name>
+        <rename>customer_city</rename>
+      </field>
+      <field>
+        <name>location</name>
+        <rename>customer_location</rename>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename>customer_phone</rename>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename>customer_postal_code</rename>
+      </field>
+      <field>
+        <name>district</name>
+        <rename>customer_district</rename>
+      </field>
+      <field>
+        <name>address</name>
+        <rename>customer_address</rename>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>customer_last_update</rename>
+      </field>
+      <field>
+        <name>email</name>
+        <rename>customer_email</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>customer_last_name</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>customer_first_name</rename>
+      </field>
+      <field>
+        <name>customer_id</name>
+        <rename>customer_id</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1248</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>fieldname</name>
+      </field>
+      <field>
+        <name>new_field</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1408</xloc>
+      <yloc>544</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
