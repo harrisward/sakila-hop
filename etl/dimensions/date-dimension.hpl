@@ -33,17 +33,17 @@
     <hop>
       <from>Generate Dates</from>
       <to>Date Calculations</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Date Calculations</from>
       <to>Date TK String</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Date TK String</from>
       <to>Populate Date Dimension</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
   </order>
   <transform>
@@ -68,69 +68,6 @@
     <attributes/>
     <GUI>
       <xloc>288</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Generate Dates</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <calculation>
-      <calc_type>ADD_DAYS</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
-      <field_a>STATIC_DATE</field_a>
-      <field_b>INCREMENT</field_b>
-      <field_c/>
-      <field_name>DATE</field_name>
-      <grouping_symbol/>
-      <remove>N</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>Date</value_type>
-    </calculation>
-    <calculation>
-      <calc_type>DAY_OF_MONTH</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
-      <field_a>DATE</field_a>
-      <field_b/>
-      <field_c/>
-      <field_name>DAY_OF_MONTH</field_name>
-      <grouping_symbol/>
-      <remove>N</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>Integer</value_type>
-    </calculation>
-    <calculation>
-      <calc_type>MONTH_OF_DATE</calc_type>
-      <conversion_mask/>
-      <currency_symbol/>
-      <decimal_symbol/>
-      <field_a>DATE</field_a>
-      <field_b/>
-      <field_c/>
-      <field_name>MONTH_OF_YEAR</field_name>
-      <grouping_symbol/>
-      <remove>N</remove>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <value_type>Integer</value_type>
-    </calculation>
-    <failIfNoFile>Y</failIfNoFile>
-    <attributes/>
-    <GUI>
-      <xloc>448</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -240,6 +177,52 @@
     <attributes/>
     <GUI>
       <xloc>128</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Generate Dates</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <calculation>
+      <calc_type>ADD_DAYS</calc_type>
+      <field_a>STATIC_DATE</field_a>
+      <field_b>INCREMENT</field_b>
+      <field_name>DATE</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Date</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>DAY_OF_MONTH</calc_type>
+      <field_a>DATE</field_a>
+      <field_name>DAY_OF_MONTH</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>MONTH_OF_DATE</calc_type>
+      <field_a>DATE</field_a>
+      <field_name>MONTH_OF_YEAR</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <failIfNoFile>Y</failIfNoFile>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

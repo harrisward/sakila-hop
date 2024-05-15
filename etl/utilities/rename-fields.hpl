@@ -55,7 +55,7 @@
         <group/>
         <length>-1</length>
         <name>const</name>
-        <nullif>staff_</nullif>
+        <nullif>film_</nullif>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
         <type>String</type>
@@ -116,46 +116,97 @@
     </partitioning>
     <data>
       <line>
-        <item>staff_id</item>
+        <item>film_id</item>
       </line>
       <line>
-        <item>first_name</item>
+        <item>title</item>
       </line>
       <line>
-        <item>last_name</item>
+        <item>description</item>
       </line>
       <line>
-        <item>email</item>
+        <item>release_year</item>
+      </line>
+      <line>
+        <item>rental_duration</item>
+      </line>
+      <line>
+        <item>rental_rate</item>
+      </line>
+      <line>
+        <item>length</item>
+      </line>
+      <line>
+        <item>replacement_cost</item>
+      </line>
+      <line>
+        <item>rating</item>
       </line>
       <line>
         <item>last_update</item>
       </line>
       <line>
-        <item>staff_active</item>
+        <item>language</item>
       </line>
       <line>
-        <item>full_name</item>
+        <item>rating_description</item>
       </line>
       <line>
-        <item>address</item>
+        <item>trailers</item>
       </line>
       <line>
-        <item>district</item>
+        <item>behind_the_scenes</item>
       </line>
       <line>
-        <item>postal_code</item>
+        <item>commentaries</item>
       </line>
       <line>
-        <item>phone</item>
+        <item>deleted_scenes</item>
       </line>
       <line>
-        <item>location</item>
+        <item>animation_category</item>
       </line>
       <line>
-        <item>city</item>
+        <item>children_category</item>
       </line>
       <line>
-        <item>country</item>
+        <item>classics_category</item>
+      </line>
+      <line>
+        <item>comedy_category</item>
+      </line>
+      <line>
+        <item>documentary_category</item>
+      </line>
+      <line>
+        <item>drame_category</item>
+      </line>
+      <line>
+        <item>family_category</item>
+      </line>
+      <line>
+        <item>foreign_category</item>
+      </line>
+      <line>
+        <item>games_category</item>
+      </line>
+      <line>
+        <item>horror_category</item>
+      </line>
+      <line>
+        <item>music_category</item>
+      </line>
+      <line>
+        <item>new_category</item>
+      </line>
+      <line>
+        <item>scifi_category</item>
+      </line>
+      <line>
+        <item>sports_category</item>
+      </line>
+      <line>
+        <item>travel_category</item>
       </line>
     </data>
     <fields>

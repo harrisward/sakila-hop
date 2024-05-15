@@ -21,49 +21,34 @@
   </notepads>
   <order>
     <hop>
-      <from>Generate Hours</from>
-      <to>Hours</to>
+      <from>Generate Datetime</from>
+      <to>Add Second</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Hours</from>
-      <to>Cartesian Join</to>
+      <from>Add Second</from>
+      <to>Calculate Additional Fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Generate Minutes / Seconds</from>
-      <to>Minutes</to>
+      <from>Calculate Additional Fields</from>
+      <to>AM or PM</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Minutes</from>
-      <to>Cartesian Join</to>
+      <from>AM or PM</from>
+      <to>Format Fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Seconds</from>
-      <to>Cartesian Join</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Generate Minutes / Seconds</from>
-      <to>Seconds</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Cartesian Join</from>
-      <to>Time Calculations</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Time Calculations</from>
+      <from>Format Fields</from>
       <to>Populate Time Dimension</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Cartesian Join</name>
-    <type>JoinRows</type>
+    <name>AM or PM</name>
+    <type>SuperScript</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -72,27 +57,191 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <cache_size>500</cache_size>
-    <main/>
-    <compare>
-      <condition>
-        <conditions>
-</conditions>
-        <function>=</function>
-        <negated>N</negated>
-        <operator>-</operator>
-      </condition>
-    </compare>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>AM_PM</name>
+        <precision>-1</precision>
+        <rename>AM_PM</rename>
+        <replace>N</replace>
+        <scriptResult>N</scriptResult>
+        <type>String</type>
+      </field>
+    </fields>
+    <scriptLanguage>ECMAScript</scriptLanguage>
+    <scripts>
+      <script>
+        <scriptBody>
+if(HOUR >= 12) {
+	AM_PM = 'PM'
+} else {
+	AM_PM = 'AM'
+}</scriptBody>
+        <scriptName>script1</scriptName>
+        <scriptType>0</scriptType>
+      </script>
+    </scripts>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Add Second</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <increment_by>1</increment_by>
+    <max_value>999999999</max_value>
+    <seqname>SEQ_</seqname>
+    <start_at>0</start_at>
+    <use_counter>Y</use_counter>
+    <use_database>N</use_database>
+    <valuename>SECOND_INCREMENT</valuename>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Calculate Additional Fields</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <calculation>
+      <calc_type>ADD_SECONDS</calc_type>
+      <field_a>DATETIME</field_a>
+      <field_b>SECOND_INCREMENT</field_b>
+      <field_name>FULL_TIME</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Date</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>HOUR_OF_DAY</calc_type>
+      <field_a>FULL_TIME</field_a>
+      <field_name>HOUR</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>MINUTE_OF_HOUR</calc_type>
+      <field_a>FULL_TIME</field_a>
+      <field_name>MINUTE</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>SECOND_OF_MINUTE</calc_type>
+      <field_a>FULL_TIME</field_a>
+      <field_name>SECOND</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <failIfNoFile>Y</failIfNoFile>
     <attributes/>
     <GUI>
       <xloc>448</xloc>
-      <yloc>352</yloc>
+      <yloc>224</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Generate Hours</name>
+    <name>Format Fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>FULL_TIME</name>
+        <rename>TIME_TK</rename>
+      </field>
+      <field>
+        <name>FULL_TIME</name>
+        <rename>TIME_DESCRIPTION</rename>
+      </field>
+      <field>
+        <name>HOUR</name>
+      </field>
+      <field>
+        <name>MINUTE</name>
+      </field>
+      <field>
+        <name>SECOND</name>
+      </field>
+      <field>
+        <name>AM_PM</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>TIME_TK</name>
+        <rename>TIME_TK</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>HHmmss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>TIME_DESCRIPTION</name>
+        <rename>TIME_DESCRIPTION</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>HH:mm:ss</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Generate Datetime</name>
     <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
@@ -103,88 +252,25 @@
       <schema_name/>
     </partitioning>
     <fields>
-</fields>
+      <field>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+        <length>-1</length>
+        <name>DATETIME</name>
+        <nullif>2000-01-01 00:00:00</nullif>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <type>Date</type>
+      </field>
+    </fields>
     <interval_in_ms>5000</interval_in_ms>
     <last_time_field>FiveSecondsAgo</last_time_field>
-    <limit>24</limit>
+    <limit>86400</limit>
     <never_ending>N</never_ending>
     <row_time_field>now</row_time_field>
     <attributes/>
     <GUI>
       <xloc>128</xloc>
       <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Generate Minutes / Seconds</name>
-    <type>RowGenerator</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-</fields>
-    <interval_in_ms>5000</interval_in_ms>
-    <last_time_field>FiveSecondsAgo</last_time_field>
-    <limit>60</limit>
-    <never_ending>N</never_ending>
-    <row_time_field>now</row_time_field>
-    <attributes/>
-    <GUI>
-      <xloc>128</xloc>
-      <yloc>352</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Hours</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <seqname>SEQ_</seqname>
-    <start_at>0</start_at>
-    <use_counter>Y</use_counter>
-    <use_database>N</use_database>
-    <valuename>HOUR</valuename>
-    <attributes/>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Minutes</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <seqname>SEQ_</seqname>
-    <start_at>0</start_at>
-    <use_counter>Y</use_counter>
-    <use_database>N</use_database>
-    <valuename>MINUTE</valuename>
-    <attributes/>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>352</yloc>
     </GUI>
   </transform>
   <transform>
@@ -206,77 +292,22 @@
     <only_when_have_rows>N</only_when_have_rows>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
     <partitioning_monthly>Y</partitioning_monthly>
+    <return_field/>
     <return_keys>N</return_keys>
+    <schema/>
     <specify_fields>N</specify_fields>
+    <table>dim_time</table>
+    <tablename_field/>
     <tablename_in_field>N</tablename_in_field>
     <tablename_in_table>Y</tablename_in_table>
     <truncate>N</truncate>
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>352</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Seconds</name>
-    <type>Sequence</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <increment_by>1</increment_by>
-    <max_value>999999999</max_value>
-    <seqname>SEQ_</seqname>
-    <start_at>0</start_at>
-    <use_counter>Y</use_counter>
-    <use_database>N</use_database>
-    <valuename>SECOND</valuename>
-    <attributes/>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>480</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Time Calculations</name>
-    <type>SuperScript</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <length>-1</length>
-        <name>TIME_TK</name>
-        <precision>-1</precision>
-        <rename>TIME_TK</rename>
-        <replace>N</replace>
-        <scriptResult>N</scriptResult>
-        <type>String</type>
-      </field>
-    </fields>
-    <scriptLanguage>ECMAScript</scriptLanguage>
-    <scripts>
-      <script>
-        <scriptBody>TIME_TK = ''+HOUR+MINUTE+SECOND</scriptBody>
-        <scriptName>script1</scriptName>
-        <scriptType>0</scriptType>
-      </script>
-    </scripts>
-    <attributes/>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>352</yloc>
+      <xloc>928</xloc>
+      <yloc>224</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

@@ -36,16 +36,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Lookup Store TK</from>
-      <to>Lookup Film TK</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Lookup Film TK</from>
-      <to>Preview</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Rentals</from>
       <to>Rental Duration?</to>
       <enabled>Y</enabled>
@@ -78,6 +68,16 @@
     <hop>
       <from>Date TKs</from>
       <to>Rentals Fact</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Lookup Store TK</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -111,27 +111,21 @@
       </field>
       <field>
         <name>rental_duration</name>
-        <rename/>
       </field>
       <field>
         <name>customer_tk</name>
-        <rename/>
       </field>
       <field>
         <name>staff_tk</name>
-        <rename/>
       </field>
       <field>
         <name>store_tk</name>
-        <rename/>
       </field>
       <field>
         <name>film_tk</name>
-        <rename/>
       </field>
       <field>
         <name>rental_id</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -290,42 +284,6 @@
     <attributes/>
     <GUI>
       <xloc>608</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Lookup Film TK</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <connection>Sakila DWH</connection>
-    <lookup>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <fail_on_multiple>N</fail_on_multiple>
-      <key>
-        <condition>=</condition>
-        <field>film_id</field>
-        <name>film_id</name>
-      </key>
-      <table>dim_film</table>
-      <value>
-        <name>film_tk</name>
-        <trim_type>none</trim_type>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <GUI>
-      <xloc>1248</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -564,7 +522,6 @@ FROM sakila.rental
         <condition>=</condition>
         <field>rental_id</field>
         <name>rental_id</name>
-        <name2/>
       </key>
       <schema/>
       <table>fact_rentals</table>
@@ -618,6 +575,47 @@ FROM sakila.rental
     <attributes/>
     <GUI>
       <xloc>1728</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <connection>Sakila DWH</connection>
+    <lookup>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <fail_on_multiple>N</fail_on_multiple>
+      <key>
+        <condition>=</condition>
+        <field>film_id</field>
+        <name>film_id</name>
+        <name2/>
+      </key>
+      <orderby/>
+      <schema/>
+      <table>dim_film</table>
+      <value>
+        <default/>
+        <name>film_tk</name>
+        <rename>film_tk</rename>
+        <trim_type>none</trim_type>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>1248</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

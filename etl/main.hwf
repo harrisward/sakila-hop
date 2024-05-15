@@ -156,32 +156,6 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Truncate tables</name>
-      <description/>
-      <type>TRUNCATE_TABLES</type>
-      <attributes/>
-      <arg_from_previous>N</arg_from_previous>
-      <connection>Sakila DWH</connection>
-      <fields>
-        <field>
-          <name>dim_customer</name>
-        </field>
-        <field>
-          <name>dim_date</name>
-        </field>
-        <field>
-          <name>dim_staff</name>
-        </field>
-        <field>
-          <name>fact_rentals</name>
-        </field>
-      </fields>
-      <parallel>N</parallel>
-      <xloc>288</xloc>
-      <yloc>224</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
       <name>Prime Dimensions</name>
       <description/>
       <type>SQL</type>
@@ -194,7 +168,7 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <useVariableSubstitution>N</useVariableSubstitution>
       <parallel>N</parallel>
       <xloc>448</xloc>
-      <yloc>224</yloc>
+      <yloc>352</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -339,23 +313,9 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Start</from>
-      <to>Truncate tables</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Truncate tables</from>
-      <to>Prime Dimensions</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Prime Dimensions</from>
       <to>date-dimension.hpl</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -449,6 +409,13 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Start</from>
+      <to>date-dimension.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
