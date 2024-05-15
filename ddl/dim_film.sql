@@ -7,14 +7,11 @@ CREATE TABLE dim_film
 , title VARCHAR(128)
 , description TEXT
 , release_year DATETIME
-, language_id INT
-, original_language_id INT
 , rental_duration INT
 , rental_rate DOUBLE
 , length INT
 , replacement_cost DOUBLE
-, rating VARCHAR(5)
-, special_features VARCHAR(54)
+, rating VARCHAR(15)
 , last_update DATETIME
 , language VARCHAR(20)
 , rating_description VARCHAR(100)
@@ -41,4 +38,4 @@ CREATE TABLE dim_film
 
 CREATE UNIQUE INDEX idx_dim_film_pk ON dim_film(film_tk);
 
-CREATE INDEX idx_dim_film_lookup ON dim_film(film_id, title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update, language, rating_description, trailers, behind_the_scenes, commentaries, deleted_scenes, animation_category, children_category, classics_category, comedy_category, documentary_category, drame_category, family_category, foreign_category, games_category, horror_category, music_category, new_category, scifi_category, sports_category, travel_category);
+CREATE INDEX idx_dim_film_lookup ON dim_film(film_id);

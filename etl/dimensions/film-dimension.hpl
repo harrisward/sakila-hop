@@ -369,12 +369,6 @@
         <name>release_year</name>
       </field>
       <field>
-        <name>language_id</name>
-      </field>
-      <field>
-        <name>original_language_id</name>
-      </field>
-      <field>
         <name>rental_duration</name>
       </field>
       <field>
@@ -388,9 +382,6 @@
       </field>
       <field>
         <name>rating</name>
-      </field>
-      <field>
-        <name>special_features</name>
       </field>
       <field>
         <name>last_update</name>
@@ -496,7 +487,7 @@
     </partitioning>
     <connection>Sakila Source</connection>
     <execute_each_row>N</execute_each_row>
-    <limit>1</limit>
+    <limit/>
     <sql>SELECT
   film_id
 , title
@@ -733,14 +724,6 @@ where fa.film_id = ? </sql>
         <name>release_year</name>
       </key>
       <key>
-        <lookup>language_id</lookup>
-        <name>language_id</name>
-      </key>
-      <key>
-        <lookup>original_language_id</lookup>
-        <name>original_language_id</name>
-      </key>
-      <key>
         <lookup>rental_duration</lookup>
         <name>rental_duration</name>
       </key>
@@ -759,10 +742,6 @@ where fa.film_id = ? </sql>
       <key>
         <lookup>rating</lookup>
         <name>rating</name>
-      </key>
-      <key>
-        <lookup>special_features</lookup>
-        <name>special_features</name>
       </key>
       <key>
         <lookup>last_update</lookup>
@@ -1052,13 +1031,13 @@ where fa.film_id = ? </sql>
     <lookup>
       <key>
         <condition>=</condition>
-        <field>film_id</field>
-        <name>film_id</name>
+        <field>film_tk</field>
+        <name>film_tk</name>
       </key>
       <key>
         <condition>=</condition>
-        <field>actor_id</field>
-        <name>actor_id</name>
+        <field>actor_tk</field>
+        <name>actor_tk</name>
       </key>
       <schema/>
       <table>dim_film_actor_bridge</table>
