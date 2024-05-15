@@ -187,7 +187,6 @@ FROM sakila_dwh.dim_store
     <fields>
       <date>
         <from>date_from</from>
-        <name/>
         <to>date_to</to>
       </date>
       <field>
@@ -282,16 +281,12 @@ FROM sakila_dwh.dim_store
       <return>
         <creation_method>tablemax</creation_method>
         <name>store_tk</name>
-        <rename/>
         <version>version</version>
       </return>
     </fields>
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
-    <schema/>
-    <sequence/>
-    <start_date_field_name/>
     <table>dim_store</table>
     <update>Y</update>
     <useBatch>N</useBatch>

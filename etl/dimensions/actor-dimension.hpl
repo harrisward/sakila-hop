@@ -21,35 +21,23 @@
   </notepads>
   <order>
     <hop>
-      <from>Table input</from>
+      <from>Actor</from>
       <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Dummy (do nothing)</from>
-      <to>Insert / update</to>
+      <to>Populate Actor Dimension</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Dummy (do nothing)</from>
+      <to>Dimension lookup/update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <GUI>
-      <xloc>672</xloc>
-      <yloc>512</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Table input</name>
+    <name>Actor</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -77,7 +65,24 @@ FROM sakila.actor
     </GUI>
   </transform>
   <transform>
-    <name>Insert / update</name>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>672</xloc>
+      <yloc>512</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Populate Actor Dimension</name>
     <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
@@ -94,12 +99,11 @@ FROM sakila.actor
         <condition>=</condition>
         <field>actor_id</field>
         <name>actor_id</name>
-        <name2/>
       </key>
       <schema/>
       <table>dim_actor</table>
       <value>
-        <name>actor_id</name>
+        <name>actor_tk</name>
         <rename>actor_id</rename>
         <update>Y</update>
       </value>
@@ -118,12 +122,79 @@ FROM sakila.actor
         <rename>last_update</rename>
         <update>Y</update>
       </value>
+      <value>
+        <name>actor_id</name>
+        <rename>actor_id</rename>
+        <update>Y</update>
+      </value>
     </lookup>
     <update_bypassed>N</update_bypassed>
     <attributes/>
     <GUI>
       <xloc>1024</xloc>
       <yloc>512</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Dimension lookup/update</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache_size>5000</cache_size>
+    <commit>100</commit>
+    <connection>Sakila DWH</connection>
+    <fields>
+      <date>
+        <from>date_from</from>
+        <name/>
+        <to>date_to</to>
+      </date>
+      <field>
+        <lookup>first_name</lookup>
+        <name>first_name</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>last_name</lookup>
+        <name>last_name</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>last_update</lookup>
+        <name>last_update</name>
+        <update>Insert</update>
+      </field>
+      <key>
+        <lookup>actor_id</lookup>
+        <name>actor_id</name>
+      </key>
+      <return>
+        <creation_method>tablemax</creation_method>
+        <name>actor_tk</name>
+        <rename/>
+        <version>version</version>
+      </return>
+    </fields>
+    <max_year>2199</max_year>
+    <min_year>1900</min_year>
+    <preload_cache>N</preload_cache>
+    <schema/>
+    <sequence/>
+    <start_date_field_name/>
+    <table>dim_actor</table>
+    <update>Y</update>
+    <useBatch>N</useBatch>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <attributes/>
+    <GUI>
+      <xloc>1024</xloc>
+      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

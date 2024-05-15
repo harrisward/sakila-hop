@@ -76,8 +76,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database join 2</from>
-      <to>Database lookup</to>
+      <from>Lookup Actors</from>
+      <to>Lookup Actor Key</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -87,7 +87,12 @@
     </hop>
     <hop>
       <from>Dummy (do nothing)</from>
-      <to>Database join 2</to>
+      <to>Lookup Actors</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lookup Actor Key</from>
+      <to>Update Film Actor Bridge</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -116,69 +121,6 @@
     <GUI>
       <xloc>1312</xloc>
       <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Database join 2</name>
-    <type>DBJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Sakila Source</connection>
-    <outer_join>Y</outer_join>
-    <parameter>
-      <field>
-        <name>film_id</name>
-        <type>Integer</type>
-      </field>
-    </parameter>
-    <replace_vars>Y</replace_vars>
-    <rowlimit>0</rowlimit>
-    <sql>select * from film_actor fa 
-inner join actor a 
-	ON fa.actor_id = a.actor_id 
-where fa.film_id = ? </sql>
-    <attributes/>
-    <GUI>
-      <xloc>1792</xloc>
-      <yloc>384</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <connection>Sakila DWH</connection>
-    <lookup>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <fail_on_multiple>N</fail_on_multiple>
-      <key>
-        <condition>=</condition>
-        <field>actor_id</field>
-        <name>actor_id</name>
-      </key>
-      <schema>sakila_dwh</schema>
-      <table>dim_actor</table>
-    </lookup>
-    <attributes/>
-    <GUI>
-      <xloc>1632</xloc>
-      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform>
@@ -525,6 +467,23 @@ where fa.film_id = ? </sql>
     </GUI>
   </transform>
   <transform>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>1952</xloc>
+      <yloc>384</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>Films</name>
     <type>TableInput</type>
     <description/>
@@ -590,6 +549,75 @@ where fc.film_id = ?</sql>
     <GUI>
       <xloc>1152</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Lookup Actor Key</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <connection>Sakila DWH</connection>
+    <lookup>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <fail_on_multiple>N</fail_on_multiple>
+      <key>
+        <condition>=</condition>
+        <field>actor_id</field>
+        <name>actor_id</name>
+      </key>
+      <schema>sakila_dwh</schema>
+      <table>dim_actor</table>
+      <value>
+        <name>actor_tk</name>
+        <rename>actor_tk</rename>
+        <trim_type>none</trim_type>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>1632</xloc>
+      <yloc>384</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Lookup Actors</name>
+    <type>DBJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila Source</connection>
+    <outer_join>Y</outer_join>
+    <parameter>
+      <field>
+        <name>film_id</name>
+        <type>Integer</type>
+      </field>
+    </parameter>
+    <replace_vars>Y</replace_vars>
+    <rowlimit>0</rowlimit>
+    <sql>select a.actor_id, a.first_name, a.last_name from film_actor fa 
+inner join actor a 
+	ON fa.actor_id = a.actor_id 
+where fa.film_id = ? </sql>
+    <attributes/>
+    <GUI>
+      <xloc>1792</xloc>
+      <yloc>384</yloc>
     </GUI>
   </transform>
   <transform>
@@ -1009,8 +1037,8 @@ where fc.film_id = ?</sql>
     </GUI>
   </transform>
   <transform>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Update Film Actor Bridge</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1019,9 +1047,38 @@ where fc.film_id = ?</sql>
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <commit>100</commit>
+    <connection>Sakila DWH</connection>
+    <lookup>
+      <key>
+        <condition>=</condition>
+        <field>film_id</field>
+        <name>film_id</name>
+        <name2/>
+      </key>
+      <key>
+        <condition>=</condition>
+        <field>actor_id</field>
+        <name>actor_id</name>
+        <name2/>
+      </key>
+      <schema/>
+      <table>dim_film_actor_bridge</table>
+      <value>
+        <name>film_tk</name>
+        <rename>film_tk</rename>
+        <update>Y</update>
+      </value>
+      <value>
+        <name>actor_tk</name>
+        <rename>actor_tk</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <update_bypassed>N</update_bypassed>
     <attributes/>
     <GUI>
-      <xloc>1952</xloc>
+      <xloc>1472</xloc>
       <yloc>384</yloc>
     </GUI>
   </transform>

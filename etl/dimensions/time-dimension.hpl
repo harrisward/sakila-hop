@@ -58,7 +58,7 @@
     <hop>
       <from>Time Calculations</from>
       <to>Populate Time Dimension</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
   </order>
   <transform>

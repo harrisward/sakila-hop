@@ -33,7 +33,7 @@
     <hop>
       <from>Max Date</from>
       <to>Staff</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Staff</from>
@@ -41,11 +41,60 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Map Active</from>
+      <from>Map Address</from>
       <to>Remove Fields</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Map Active</from>
+      <to>Full Name</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Full Name</from>
+      <to>Map Address</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <transform>
+    <name>Full Name</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <ConcatFields>
+      <removeSelectedFields>N</removeSelectedFields>
+      <targetFieldLength>0</targetFieldLength>
+      <targetFieldName>full_name</targetFieldName>
+    </ConcatFields>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>first_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <name>last_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+    </fields>
+    <separator> </separator>
+    <attributes/>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Map Active</name>
     <type>ValueMapper</type>
@@ -72,6 +121,46 @@
     <attributes/>
     <GUI>
       <xloc>448</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Map Address</name>
+    <type>SimpleMapping</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <filename>${PROJECT_HOME}/etl/utilities/lookup-address.hpl</filename>
+    <mappings>
+      <input>
+        <mapping>
+          <connector>
+            <child>address_id</child>
+            <parent>address_id</parent>
+          </connector>
+          <main_path>Y</main_path>
+          <rename_on_output>Y</rename_on_output>
+        </mapping>
+      </input>
+      <output>
+        <mapping>
+          <main_path>Y</main_path>
+          <rename_on_output>N</rename_on_output>
+        </mapping>
+      </output>
+      <parameters>
+        <inherit_all_vars>Y</inherit_all_vars>
+      </parameters>
+    </mappings>
+    <runConfiguration>local</runConfiguration>
+    <attributes/>
+    <GUI>
+      <xloc>768</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -172,7 +261,7 @@ FROM sakila_dwh.dim_staff
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>1248</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -189,7 +278,7 @@ FROM sakila_dwh.dim_staff
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>1088</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -215,25 +304,43 @@ FROM sakila_dwh.dim_staff
         <name>last_name</name>
       </field>
       <field>
-        <name>address_id</name>
-      </field>
-      <field>
         <name>email</name>
       </field>
       <field>
-        <name>store_id</name>
-      </field>
-      <field>
-        <name>active</name>
-      </field>
-      <field>
         <name>last_update</name>
+      </field>
+      <field>
+        <name>staff_active</name>
+      </field>
+      <field>
+        <name>full_name</name>
+      </field>
+      <field>
+        <name>address</name>
+      </field>
+      <field>
+        <name>district</name>
+      </field>
+      <field>
+        <name>postal_code</name>
+      </field>
+      <field>
+        <name>phone</name>
+      </field>
+      <field>
+        <name>location</name>
+      </field>
+      <field>
+        <name>city</name>
+      </field>
+      <field>
+        <name>country</name>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -251,7 +358,6 @@ FROM sakila_dwh.dim_staff
     <connection>Sakila Source</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <lookup>Max Date</lookup>
     <sql>SELECT
   staff_id
 , first_name
@@ -265,9 +371,9 @@ FROM sakila_dwh.dim_staff
 , password
 , last_update
 FROM sakila.staff
-WHERE last_update > ?
+
 </sql>
-    <variables_active>Y</variables_active>
+    <variables_active>N</variables_active>
     <attributes/>
     <GUI>
       <xloc>288</xloc>

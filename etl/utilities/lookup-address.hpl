@@ -52,12 +52,27 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Data grid</from>
+      <to>Lookup Address</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
       <from>Preview</from>
+      <to>Remove Fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Remove Fields</from>
       <to>Mapping Output</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Concat Address</from>
+      <to>Conform Stream</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Conform Stream</from>
       <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
@@ -105,7 +120,7 @@
     <ConcatFields>
       <removeSelectedFields>N</removeSelectedFields>
       <targetFieldLength>0</targetFieldLength>
-      <targetFieldName>address</targetFieldName>
+      <targetFieldName>new_address</targetFieldName>
     </ConcatFields>
     <fields>
       <field>
@@ -128,6 +143,37 @@
     <GUI>
       <xloc>768</xloc>
       <yloc>352</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Data grid</name>
+    <type>DataGrid</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <data>
+      <line>
+        <item>1</item>
+      </line>
+    </data>
+    <fields>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>address_id</name>
+        <type>Integer</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>128</yloc>
     </GUI>
   </transform>
   <transform>
@@ -322,7 +368,7 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>1088</xloc>
+      <xloc>1408</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -341,6 +387,102 @@
     <GUI>
       <xloc>928</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Remove Fields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>address_id</name>
+      </remove>
+      <remove>
+        <name>address2</name>
+      </remove>
+      <remove>
+        <name>city_id</name>
+      </remove>
+      <remove>
+        <name>country_id</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1184</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Conform Stream</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>address_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>new_address</name>
+        <rename>address</rename>
+      </field>
+      <field>
+        <name>address2</name>
+        <rename/>
+      </field>
+      <field>
+        <name>district</name>
+        <rename/>
+      </field>
+      <field>
+        <name>city_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename/>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename/>
+      </field>
+      <field>
+        <name>location</name>
+        <rename/>
+      </field>
+      <field>
+        <name>city</name>
+        <rename/>
+      </field>
+      <field>
+        <name>country_id</name>
+        <rename/>
+      </field>
+      <field>
+        <name>country</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>352</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
