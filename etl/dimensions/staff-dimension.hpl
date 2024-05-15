@@ -32,7 +32,7 @@
     </hop>
     <hop>
       <from>Map Address</from>
-      <to>Drop Fields</to>
+      <to>Cleanup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -46,11 +46,87 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Drop Fields</from>
+      <from>Cleanup</from>
       <to>Populate Staff Dimension</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <transform>
+    <name>Cleanup</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>country</name>
+        <rename>staff_country</rename>
+      </field>
+      <field>
+        <name>city</name>
+        <rename>staff_city</rename>
+      </field>
+      <field>
+        <name>location</name>
+        <rename>staff_location</rename>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename>staff_phone</rename>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename>staff_postal_code</rename>
+      </field>
+      <field>
+        <name>district</name>
+        <rename>staff_district</rename>
+      </field>
+      <field>
+        <name>address</name>
+        <rename>staff_address</rename>
+      </field>
+      <field>
+        <name>full_name</name>
+        <rename>staff_full_name</rename>
+      </field>
+      <field>
+        <name>staff_active</name>
+        <rename/>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>staff_last_update</rename>
+      </field>
+      <field>
+        <name>email</name>
+        <rename>staff_email</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>staff_last_name</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>staff_first_name</rename>
+      </field>
+      <field>
+        <name>staff_id</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Full Name</name>
     <type>ConcatFields</type>
@@ -286,82 +362,6 @@ FROM sakila_dwh.dim_staff</sql>
     <attributes/>
     <GUI>
       <xloc>1088</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Drop Fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>country</name>
-        <rename>staff_country</rename>
-      </field>
-      <field>
-        <name>city</name>
-        <rename>staff_city</rename>
-      </field>
-      <field>
-        <name>location</name>
-        <rename>staff_location</rename>
-      </field>
-      <field>
-        <name>phone</name>
-        <rename>staff_phone</rename>
-      </field>
-      <field>
-        <name>postal_code</name>
-        <rename>staff_postal_code</rename>
-      </field>
-      <field>
-        <name>district</name>
-        <rename>staff_district</rename>
-      </field>
-      <field>
-        <name>address</name>
-        <rename>staff_address</rename>
-      </field>
-      <field>
-        <name>full_name</name>
-        <rename>staff_full_name</rename>
-      </field>
-      <field>
-        <name>staff_active</name>
-        <rename/>
-      </field>
-      <field>
-        <name>last_update</name>
-        <rename>staff_last_update</rename>
-      </field>
-      <field>
-        <name>email</name>
-        <rename>staff_email</rename>
-      </field>
-      <field>
-        <name>last_name</name>
-        <rename>staff_last_name</rename>
-      </field>
-      <field>
-        <name>first_name</name>
-        <rename>staff_first_name</rename>
-      </field>
-      <field>
-        <name>staff_id</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

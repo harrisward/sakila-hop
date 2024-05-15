@@ -46,13 +46,13 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Drop Fields</from>
+      <from>Cleanup</from>
       <to>Populate Customer Dimension</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Full Name</from>
-      <to>Drop Fields</to>
+      <to>Cleanup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -88,6 +88,82 @@ WHERE last_update > ?
     <attributes/>
     <GUI>
       <xloc>288</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Cleanup</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>full_name</name>
+        <rename>customer_full_name</rename>
+      </field>
+      <field>
+        <name>customer_active</name>
+        <rename/>
+      </field>
+      <field>
+        <name>country</name>
+        <rename>customer_country</rename>
+      </field>
+      <field>
+        <name>city</name>
+        <rename>customer_city</rename>
+      </field>
+      <field>
+        <name>location</name>
+        <rename>customer_location</rename>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename>customer_phone</rename>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename>customer_postal_code</rename>
+      </field>
+      <field>
+        <name>district</name>
+        <rename>customer_district</rename>
+      </field>
+      <field>
+        <name>address</name>
+        <rename>customer_address</rename>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>customer_last_update</rename>
+      </field>
+      <field>
+        <name>email</name>
+        <rename>customer_email</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>customer_last_name</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>customer_first_name</rename>
+      </field>
+      <field>
+        <name>customer_id</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1088</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -389,82 +465,6 @@ FROM sakila_dwh.dim_customer
     <attributes/>
     <GUI>
       <xloc>1248</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Drop Fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>full_name</name>
-        <rename>customer_full_name</rename>
-      </field>
-      <field>
-        <name>customer_active</name>
-        <rename/>
-      </field>
-      <field>
-        <name>country</name>
-        <rename>customer_country</rename>
-      </field>
-      <field>
-        <name>city</name>
-        <rename>customer_city</rename>
-      </field>
-      <field>
-        <name>location</name>
-        <rename>customer_location</rename>
-      </field>
-      <field>
-        <name>phone</name>
-        <rename>customer_phone</rename>
-      </field>
-      <field>
-        <name>postal_code</name>
-        <rename>customer_postal_code</rename>
-      </field>
-      <field>
-        <name>district</name>
-        <rename>customer_district</rename>
-      </field>
-      <field>
-        <name>address</name>
-        <rename>customer_address</rename>
-      </field>
-      <field>
-        <name>last_update</name>
-        <rename>customer_last_update</rename>
-      </field>
-      <field>
-        <name>email</name>
-        <rename>customer_email</rename>
-      </field>
-      <field>
-        <name>last_name</name>
-        <rename>customer_last_name</rename>
-      </field>
-      <field>
-        <name>first_name</name>
-        <rename>customer_first_name</rename>
-      </field>
-      <field>
-        <name>customer_id</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>1088</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

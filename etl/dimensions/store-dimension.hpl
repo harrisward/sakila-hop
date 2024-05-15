@@ -42,15 +42,91 @@
     </hop>
     <hop>
       <from>Full Name</from>
-      <to>Drop Fields</to>
+      <to>Cleanup</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Drop Fields</from>
+      <from>Cleanup</from>
       <to>Populate Store Dimension</to>
       <enabled>Y</enabled>
     </hop>
   </order>
+  <transform>
+    <name>Cleanup</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>full_name</name>
+        <rename>store_manager_full_name</rename>
+      </field>
+      <field>
+        <name>country</name>
+        <rename>store_country</rename>
+      </field>
+      <field>
+        <name>city</name>
+        <rename>store_city</rename>
+      </field>
+      <field>
+        <name>location</name>
+        <rename>store_location</rename>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename>store_phone</rename>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename>store_postal_code</rename>
+      </field>
+      <field>
+        <name>district</name>
+        <rename>store_district</rename>
+      </field>
+      <field>
+        <name>address</name>
+        <rename>store_address</rename>
+      </field>
+      <field>
+        <name>active</name>
+        <rename>store_active</rename>
+      </field>
+      <field>
+        <name>email</name>
+        <rename>store_email</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>store_manager_last_name</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>store_manager_first_name</rename>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>store_last_update</rename>
+      </field>
+      <field>
+        <name>store_id</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>928</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Full Name</name>
     <type>ConcatFields</type>
@@ -318,82 +394,6 @@ FROM sakila_dwh.dim_store
     <attributes/>
     <GUI>
       <xloc>1152</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Drop Fields</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>full_name</name>
-        <rename>store_manager_full_name</rename>
-      </field>
-      <field>
-        <name>country</name>
-        <rename>store_country</rename>
-      </field>
-      <field>
-        <name>city</name>
-        <rename>store_city</rename>
-      </field>
-      <field>
-        <name>location</name>
-        <rename>store_location</rename>
-      </field>
-      <field>
-        <name>phone</name>
-        <rename>store_phone</rename>
-      </field>
-      <field>
-        <name>postal_code</name>
-        <rename>store_postal_code</rename>
-      </field>
-      <field>
-        <name>district</name>
-        <rename>store_district</rename>
-      </field>
-      <field>
-        <name>address</name>
-        <rename>store_address</rename>
-      </field>
-      <field>
-        <name>active</name>
-        <rename>store_active</rename>
-      </field>
-      <field>
-        <name>email</name>
-        <rename>store_email</rename>
-      </field>
-      <field>
-        <name>last_name</name>
-        <rename>store_manager_last_name</rename>
-      </field>
-      <field>
-        <name>first_name</name>
-        <rename>store_manager_first_name</rename>
-      </field>
-      <field>
-        <name>last_update</name>
-        <rename>store_last_update</rename>
-      </field>
-      <field>
-        <name>store_id</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
