@@ -116,7 +116,7 @@ CREATE TABLE dim_film
 , film_id INT
 , film_title VARCHAR(128)
 , film_description TEXT
-, film_release_year DATETIME
+, film_release_year INT
 , film_rental_duration INT
 , film_rental_rate DOUBLE
 , film_length INT
@@ -162,7 +162,7 @@ CREATE TABLE dim_time
 , AM_PM VARCHAR(2)
 );
 
-DROP TABLE dim_date;
+DROP TABLE IF EXISTS dim_date;
 
 CREATE TABLE dim_date
 (
@@ -172,3 +172,12 @@ CREATE TABLE dim_date
 , YEAR INT
 , MONTH_OF_YEAR_DESCRIPTION VARCHAR(100)
 );
+
+INSERT INTO sakila_dwh.dim_actor (actor_tk,version,date_from,date_to,actor_id,actor_first_name,actor_last_name,actor_last_update,actor_full_name) VALUES
+	 (0,0,'1900-01-01 00:00:00','2999-01-01 00:00:00',0,'Not Set','Not Set','1900-01-01 00:00:00','Not Set');
+
+INSERT INTO sakila_dwh.dim_customer (customer_tk,version,date_from,date_to,customer_id,customer_full_name,customer_active,customer_country,customer_city,customer_phone,customer_postal_code,customer_district,customer_address,customer_last_update,customer_email,customer_last_name,customer_first_name) VALUES
+	 (0,0,'1900-01-01 00:00:00','1900-01-01 00:00:00',0,'Not Set','NA','Not Set','Not Set','Not Set','Not Set','Not Set','Not Set','1900-01-01 00:00:00','Not Set','Not Set','Not Set');
+
+INSERT INTO sakila_dwh.dim_film (film_tk,film_id,film_title,film_description,film_release_year,film_rental_duration,film_rental_rate,film_length,film_replacement_cost,film_rating,film_last_update,film_language,film_rating_description,film_trailers,film_behind_the_scenes,film_commentaries,film_deleted_scenes,film_animation_category,film_children_category,film_classics_category,film_comedy_category,film_documentary_category,film_drama_category,film_family_category,film_foreign_category,film_games_category,film_horror_category,film_music_category,film_new_category,film_scifi_category,film_sports_category,film_travel_category) VALUES
+	 (0,0,'Not Set','Not Set',NULL,0,0.0,0,0.0,'NA',NULL,'Not Set','Not Set','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA','NA');

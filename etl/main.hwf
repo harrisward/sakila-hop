@@ -145,22 +145,6 @@
       <attributes_hac/>
     </action>
     <action>
-      <name>Prime Dimensions</name>
-      <description/>
-      <type>SQL</type>
-      <attributes/>
-      <connection>Sakila DWH</connection>
-      <sendOneStatement>N</sendOneStatement>
-      <sql>INSERT INTO sakila_dwh.dim_staff (staff_tk,version,date_from,date_to,staff_id,first_name,last_name,address_id,email,store_id,active,last_update) 
-VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,'Unknown',0,0,'1900-01-01 00:00:00')</sql>
-      <sqlfromfile>N</sqlfromfile>
-      <useVariableSubstitution>N</useVariableSubstitution>
-      <parallel>N</parallel>
-      <xloc>448</xloc>
-      <yloc>352</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
       <name>film-dimension.hpl</name>
       <description/>
       <type>PIPELINE</type>
@@ -266,13 +250,6 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
     </action>
   </actions>
   <hops>
-    <hop>
-      <from>Prime Dimensions</from>
-      <to>date-dimension.hpl</to>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>Start</from>
       <to>date-dimension.hpl</to>
