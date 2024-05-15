@@ -26,7 +26,7 @@
       <schedulerType>0</schedulerType>
       <weekDay>1</weekDay>
       <parallel>N</parallel>
-      <xloc>128</xloc>
+      <xloc>448</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -36,7 +36,7 @@
       <type>SUCCESS</type>
       <attributes/>
       <parallel>N</parallel>
-      <xloc>1920</xloc>
+      <xloc>1888</xloc>
       <yloc>224</yloc>
       <attributes_hac/>
     </action>
@@ -116,17 +116,6 @@
       <parallel>N</parallel>
       <xloc>1088</xloc>
       <yloc>224</yloc>
-      <attributes_hac/>
-    </action>
-    <action>
-      <name>Abort workflow</name>
-      <description/>
-      <type>ABORT</type>
-      <attributes/>
-      <always_log_rows>N</always_log_rows>
-      <parallel>N</parallel>
-      <xloc>1248</xloc>
-      <yloc>384</yloc>
       <attributes_hac/>
     </action>
     <action>
@@ -278,41 +267,6 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
   </actions>
   <hops>
     <hop>
-      <from>staff-dimension.hpl</from>
-      <to>customer-dimension.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>staff-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>customer-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>rentals-fact.hpl</from>
-      <to>Success</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>rentals-fact.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Prime Dimensions</from>
       <to>date-dimension.hpl</to>
       <enabled>N</enabled>
@@ -320,18 +274,11 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>film-dimension.hpl</from>
-      <to>rentals-fact.hpl</to>
+      <from>Start</from>
+      <to>date-dimension.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>film-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
+      <unconditional>Y</unconditional>
     </hop>
     <hop>
       <from>date-dimension.hpl</from>
@@ -348,10 +295,10 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>time-dimension.hpl</from>
-      <to>Abort workflow</to>
+      <from>staff-dimension.hpl</from>
+      <to>customer-dimension.hpl</to>
       <enabled>Y</enabled>
-      <evaluation>N</evaluation>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -359,27 +306,6 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <to>store-dimension.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>store-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>date-dimension.hpl</from>
-      <to>time-dimension.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>time-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -397,25 +323,18 @@ VALUES (0,1,'1900-01-01 00:00:00','2200-01-01 00:00:00',0,'Unknown','Unknown',0,
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>actor-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>date-dimension.hpl</from>
-      <to>Abort workflow</to>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Start</from>
-      <to>date-dimension.hpl</to>
+      <from>film-dimension.hpl</from>
+      <to>rentals-fact.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>rentals-fact.hpl</from>
+      <to>Success</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>

@@ -21,7 +21,7 @@
   </notepads>
   <order>
     <hop>
-      <from>Generate 10000 Rows</from>
+      <from>Generate 18250 Rows</from>
       <to>Add Increment</to>
       <enabled>Y</enabled>
     </hop>
@@ -33,17 +33,17 @@
     <hop>
       <from>Generate Dates</from>
       <to>Date Calculations</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Date Calculations</from>
       <to>Date TK String</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Date TK String</from>
       <to>Populate Date Dimension</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
@@ -83,10 +83,58 @@
       <schema_name/>
     </partitioning>
     <fields>
-</fields>
+      <field>
+        <length>-1</length>
+        <name>MONTH_OF_YEAR_DESCRIPTION</name>
+        <precision>-1</precision>
+        <rename>MONTH_OF_YEAR_DESCRIPTION</rename>
+        <replace>N</replace>
+        <scriptResult>N</scriptResult>
+        <type>String</type>
+      </field>
+    </fields>
     <scriptLanguage>ECMAScript</scriptLanguage>
     <scripts>
       <script>
+        <scriptBody>
+switch(MONTH_OF_YEAR){
+	case 1:
+		MONTH_OF_YEAR_DESCRIPTION = 'January';
+		break;
+	case 2:
+		MONTH_OF_YEAR_DESCRIPTION = 'Febuary';
+		break;
+	case 3:
+		MONTH_OF_YEAR_DESCRIPTION = 'March';
+		break;
+	case 4:
+		MONTH_OF_YEAR_DESCRIPTION = 'April';
+		break;
+	case 5:
+		MONTH_OF_YEAR_DESCRIPTION = 'May';
+		break;
+	case 6:
+		MONTH_OF_YEAR_DESCRIPTION = 'June';
+		break;
+	case 7:
+		MONTH_OF_YEAR_DESCRIPTION = 'July';
+		break;
+	case 8:
+		MONTH_OF_YEAR_DESCRIPTION = 'August';
+		break;
+	case 9:
+		MONTH_OF_YEAR_DESCRIPTION = 'September';
+		break;
+	case 10:
+		MONTH_OF_YEAR_DESCRIPTION = 'October';
+		break;
+	case 11:
+		MONTH_OF_YEAR_DESCRIPTION = 'November';
+		break;
+	case 12:
+		MONTH_OF_YEAR_DESCRIPTION = 'December';
+		break;
+}</scriptBody>
         <scriptName>script1</scriptName>
         <scriptType>0</scriptType>
       </script>
@@ -111,6 +159,7 @@
     <fields>
       <field>
         <name>DATE</name>
+        <rename>DATE_TK</rename>
       </field>
       <field>
         <name>DAY_OF_MONTH</name>
@@ -119,8 +168,10 @@
         <name>MONTH_OF_YEAR</name>
       </field>
       <field>
-        <name>DATE</name>
-        <rename>DATE_TK</rename>
+        <name>YEAR</name>
+      </field>
+      <field>
+        <name>MONTH_OF_YEAR_DESCRIPTION</name>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
@@ -148,7 +199,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Generate 10000 Rows</name>
+    <name>Generate 18250 Rows</name>
     <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
@@ -160,7 +211,10 @@
     </partitioning>
     <fields>
       <field>
+        <currency/>
+        <decimal/>
         <format>dd-MM-yyyy</format>
+        <group/>
         <length>-1</length>
         <name>STATIC_DATE</name>
         <nullif>01-01-2000</nullif>
@@ -171,7 +225,7 @@
     </fields>
     <interval_in_ms>5000</interval_in_ms>
     <last_time_field>FiveSecondsAgo</last_time_field>
-    <limit>10000</limit>
+    <limit>18250</limit>
     <never_ending>N</never_ending>
     <row_time_field>now</row_time_field>
     <attributes/>
@@ -214,6 +268,15 @@
       <calc_type>MONTH_OF_DATE</calc_type>
       <field_a>DATE</field_a>
       <field_name>MONTH_OF_YEAR</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>Integer</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>YEAR_OF_DATE</calc_type>
+      <field_a>DATE</field_a>
+      <field_name>YEAR</field_name>
       <remove>N</remove>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>

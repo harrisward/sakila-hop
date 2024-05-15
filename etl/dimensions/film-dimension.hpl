@@ -26,11 +26,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Lookup Language</from>
-      <to>Map Ratings</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Map Ratings</from>
       <to>Split Special Features</to>
       <enabled>Y</enabled>
@@ -95,6 +90,16 @@
       <to>Update Film Actor Bridge</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Lookup Language</from>
+      <to>Film Title Cleansing</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Film Title Cleansing</from>
+      <to>Map Ratings</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
     <name>Category Constant</name>
@@ -119,7 +124,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1312</xloc>
+      <xloc>1472</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -279,7 +284,7 @@
     <key_field>category_name</key_field>
     <attributes/>
     <GUI>
-      <xloc>1472</xloc>
+      <xloc>1632</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -340,7 +345,7 @@
     <key_field>special_feature_description</key_field>
     <attributes/>
     <GUI>
-      <xloc>960</xloc>
+      <xloc>1120</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -483,7 +488,7 @@
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1792</xloc>
+      <xloc>1952</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -500,8 +505,40 @@
     </partitioning>
     <attributes/>
     <GUI>
-      <xloc>1952</xloc>
+      <xloc>2112</xloc>
       <yloc>384</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Film Title Cleansing</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>title</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>lower</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>yes</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>224</yloc>
     </GUI>
   </transform>
   <transform>
@@ -567,7 +604,7 @@ inner join category c
 where fc.film_id = ?</sql>
     <attributes/>
     <GUI>
-      <xloc>1152</xloc>
+      <xloc>1312</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -605,7 +642,7 @@ where fc.film_id = ?</sql>
     </lookup>
     <attributes/>
     <GUI>
-      <xloc>1632</xloc>
+      <xloc>1792</xloc>
       <yloc>384</yloc>
     </GUI>
   </transform>
@@ -636,7 +673,7 @@ inner join actor a
 where fa.film_id = ? </sql>
     <attributes/>
     <GUI>
-      <xloc>1792</xloc>
+      <xloc>1952</xloc>
       <yloc>384</yloc>
     </GUI>
   </transform>
@@ -715,7 +752,7 @@ where fa.film_id = ? </sql>
     <target_field>rating_description</target_field>
     <attributes/>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>608</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -862,18 +899,16 @@ where fa.film_id = ? </sql>
       </key>
       <return>
         <creation_method>tablemax</creation_method>
-        <last_update_field/>
         <name>film_tk</name>
         <use_autoinc>N</use_autoinc>
       </return>
     </fields>
     <preloadCache>N</preloadCache>
     <replace>N</replace>
-    <schema/>
     <table>dim_film</table>
     <attributes/>
     <GUI>
-      <xloc>1952</xloc>
+      <xloc>2112</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -992,7 +1027,7 @@ where fa.film_id = ? </sql>
 </valuetypes>
     <attributes/>
     <GUI>
-      <xloc>1632</xloc>
+      <xloc>1792</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -1019,7 +1054,7 @@ where fa.film_id = ? </sql>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -1042,7 +1077,7 @@ where fa.film_id = ? </sql>
     <splitfield>special_features</splitfield>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>768</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -1086,7 +1121,7 @@ where fa.film_id = ? </sql>
     <update_bypassed>N</update_bypassed>
     <attributes/>
     <GUI>
-      <xloc>1472</xloc>
+      <xloc>1632</xloc>
       <yloc>384</yloc>
     </GUI>
   </transform>

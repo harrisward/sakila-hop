@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS dim_time;
+
 CREATE TABLE dim_time
 (
   TIME_TK VARCHAR(8)
