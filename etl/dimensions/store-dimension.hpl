@@ -26,18 +26,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Preview</from>
-      <to>Populate Store Dimension</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Store</from>
       <to>Lookup Manager</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Map Address</from>
-      <to>Preview</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -45,7 +35,61 @@
       <to>Map Address</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Map Address</from>
+      <to>Full Name</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Full Name</from>
+      <to>Drop Fields</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Drop Fields</from>
+      <to>Populate Store Dimension</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
+  <transform>
+    <name>Full Name</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <ConcatFields>
+      <removeSelectedFields>N</removeSelectedFields>
+      <targetFieldLength>0</targetFieldLength>
+      <targetFieldName>full_name</targetFieldName>
+    </ConcatFields>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>first_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <name>last_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+    </fields>
+    <separator> </separator>
+    <attributes/>
+    <GUI>
+      <xloc>768</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Lookup Manager</name>
     <type>DBLookup</type>
@@ -190,88 +234,68 @@ FROM sakila_dwh.dim_store
         <to>date_to</to>
       </date>
       <field>
-        <lookup>manager_staff_id</lookup>
-        <name>manager_staff_id</name>
+        <lookup>store_manager_full_name</lookup>
+        <name>store_manager_full_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address_id</lookup>
-        <name>address_id</name>
+        <lookup>store_country</lookup>
+        <name>store_country</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_update</lookup>
-        <name>last_update</name>
+        <lookup>store_city</lookup>
+        <name>store_city</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>first_name</lookup>
-        <name>first_name</name>
+        <lookup>store_location</lookup>
+        <name>store_location</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_name</lookup>
-        <name>last_name</name>
+        <lookup>store_phone</lookup>
+        <name>store_phone</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>email</lookup>
-        <name>email</name>
+        <lookup>store_postal_code</lookup>
+        <name>store_postal_code</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>active</lookup>
-        <name>active</name>
+        <lookup>store_district</lookup>
+        <name>store_district</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address</lookup>
-        <name>address</name>
+        <lookup>store_address</lookup>
+        <name>store_address</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address2</lookup>
-        <name>address2</name>
+        <lookup>store_active</lookup>
+        <name>store_active</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>district</lookup>
-        <name>district</name>
+        <lookup>store_email</lookup>
+        <name>store_email</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>city_id</lookup>
-        <name>city_id</name>
+        <lookup>store_manager_last_name</lookup>
+        <name>store_manager_last_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>postal_code</lookup>
-        <name>postal_code</name>
+        <lookup>store_manager_first_name</lookup>
+        <name>store_manager_first_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>phone</lookup>
-        <name>phone</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>location</lookup>
-        <name>location</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>city</lookup>
-        <name>city</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>country_id</lookup>
-        <name>country_id</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>country</lookup>
-        <name>country</name>
+        <lookup>store_last_update</lookup>
+        <name>store_last_update</name>
         <update>Insert</update>
       </field>
       <key>
@@ -293,13 +317,13 @@ FROM sakila_dwh.dim_store
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>1152</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Preview</name>
-    <type>Dummy</type>
+    <name>Drop Fields</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -308,9 +332,68 @@ FROM sakila_dwh.dim_store
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <fields>
+      <field>
+        <name>full_name</name>
+        <rename>store_manager_full_name</rename>
+      </field>
+      <field>
+        <name>country</name>
+        <rename>store_country</rename>
+      </field>
+      <field>
+        <name>city</name>
+        <rename>store_city</rename>
+      </field>
+      <field>
+        <name>location</name>
+        <rename>store_location</rename>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename>store_phone</rename>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename>store_postal_code</rename>
+      </field>
+      <field>
+        <name>district</name>
+        <rename>store_district</rename>
+      </field>
+      <field>
+        <name>address</name>
+        <rename>store_address</rename>
+      </field>
+      <field>
+        <name>active</name>
+        <rename>store_active</rename>
+      </field>
+      <field>
+        <name>email</name>
+        <rename>store_email</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>store_manager_last_name</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>store_manager_first_name</rename>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>store_last_update</rename>
+      </field>
+      <field>
+        <name>store_id</name>
+        <rename/>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
     <attributes/>
     <GUI>
-      <xloc>768</xloc>
+      <xloc>928</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

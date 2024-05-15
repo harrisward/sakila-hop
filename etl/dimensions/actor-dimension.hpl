@@ -21,18 +21,28 @@
   </notepads>
   <order>
     <hop>
-      <from>Actor</from>
-      <to>Dummy (do nothing)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Dummy (do nothing)</from>
-      <to>Populate Actor Dimension</to>
+      <from>Max Date</from>
+      <to>Actor</to>
       <enabled>N</enabled>
     </hop>
     <hop>
-      <from>Dummy (do nothing)</from>
-      <to>Dimension lookup/update</to>
+      <from>Actor</from>
+      <to>Full Name</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Full Name</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Actor 2</from>
+      <to>Full Name</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Populate Actor Dimension</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -60,13 +70,13 @@ FROM sakila.actor
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>512</yloc>
+      <xloc>320</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Actor 2</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -75,68 +85,87 @@ FROM sakila.actor
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <connection>Sakila Source</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT
+  actor_id
+, first_name
+, last_name
+, last_update
+FROM sakila.actor
+</sql>
+    <variables_active>N</variables_active>
     <attributes/>
     <GUI>
-      <xloc>672</xloc>
-      <yloc>512</yloc>
+      <xloc>480</xloc>
+      <yloc>480</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Full Name</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <ConcatFields>
+      <removeSelectedFields>N</removeSelectedFields>
+      <targetFieldLength>0</targetFieldLength>
+      <targetFieldName>full_name</targetFieldName>
+    </ConcatFields>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>first_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+      <field>
+        <length>-1</length>
+        <name>last_name</name>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+        <type>String</type>
+      </field>
+    </fields>
+    <separator> </separator>
+    <attributes/>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>288</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Max Date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila DWH</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT COALESCE(MAX(actor_last_update), '1970-01-01') AS max_dim_actor_last_update
+FROM sakila_dwh.dim_actor</sql>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>160</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
     <name>Populate Actor Dimension</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <commit>100</commit>
-    <connection>Sakila DWH</connection>
-    <lookup>
-      <key>
-        <condition>=</condition>
-        <field>actor_id</field>
-        <name>actor_id</name>
-      </key>
-      <schema/>
-      <table>dim_actor</table>
-      <value>
-        <name>actor_tk</name>
-        <rename>actor_id</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>first_name</name>
-        <rename>first_name</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>last_name</name>
-        <rename>last_name</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>last_update</name>
-        <rename>last_update</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>actor_id</name>
-        <rename>actor_id</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <update_bypassed>N</update_bypassed>
-    <attributes/>
-    <GUI>
-      <xloc>1024</xloc>
-      <yloc>512</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Dimension lookup/update</name>
     <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -156,18 +185,23 @@ FROM sakila.actor
         <to>date_to</to>
       </date>
       <field>
-        <lookup>first_name</lookup>
-        <name>first_name</name>
+        <lookup>actor_first_name</lookup>
+        <name>actor_first_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_name</lookup>
-        <name>last_name</name>
+        <lookup>actor_last_name</lookup>
+        <name>actor_last_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_update</lookup>
-        <name>last_update</name>
+        <lookup>actor_last_update</lookup>
+        <name>actor_last_update</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>actor_full_name</lookup>
+        <name>actor_full_name</name>
         <update>Insert</update>
       </field>
       <key>
@@ -193,8 +227,48 @@ FROM sakila.actor
     <use_start_date_alternative>N</use_start_date_alternative>
     <attributes/>
     <GUI>
-      <xloc>1024</xloc>
-      <yloc>384</yloc>
+      <xloc>928</xloc>
+      <yloc>288</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>actor_id</name>
+        <rename>actor_id</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>actor_first_name</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>actor_last_name</rename>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>actor_last_update</rename>
+      </field>
+      <field>
+        <name>full_name</name>
+        <rename>actor_full_name</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>672</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform_error_handling>

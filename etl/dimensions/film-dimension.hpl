@@ -1054,13 +1054,11 @@ where fa.film_id = ? </sql>
         <condition>=</condition>
         <field>film_id</field>
         <name>film_id</name>
-        <name2/>
       </key>
       <key>
         <condition>=</condition>
         <field>actor_id</field>
         <name>actor_id</name>
-        <name2/>
       </key>
       <schema/>
       <table>dim_film_actor_bridge</table>

@@ -32,7 +32,7 @@
     </hop>
     <hop>
       <from>Map Address</from>
-      <to>Remove Fields</to>
+      <to>Drop Fields</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -46,7 +46,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Remove Fields</from>
+      <from>Drop Fields</from>
       <to>Populate Staff Dimension</to>
       <enabled>Y</enabled>
     </hop>
@@ -173,9 +173,8 @@
     <connection>Sakila DWH</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_staff_last_update
-FROM sakila_dwh.dim_staff
-WHERE last_update > ?</sql>
+    <sql>SELECT COALESCE(MAX(staff_last_update), '1970-01-01') AS max_dim_staff_last_update
+FROM sakila_dwh.dim_staff</sql>
     <variables_active>Y</variables_active>
     <attributes/>
     <GUI>
@@ -203,23 +202,43 @@ WHERE last_update > ?</sql>
         <to>date_to</to>
       </date>
       <field>
-        <lookup>first_name</lookup>
-        <name>first_name</name>
+        <lookup>staff_country</lookup>
+        <name>staff_country</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_name</lookup>
-        <name>last_name</name>
+        <lookup>staff_city</lookup>
+        <name>staff_city</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>email</lookup>
-        <name>email</name>
+        <lookup>staff_location</lookup>
+        <name>staff_location</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>last_update</lookup>
-        <name>last_update</name>
+        <lookup>staff_phone</lookup>
+        <name>staff_phone</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>staff_postal_code</lookup>
+        <name>staff_postal_code</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>staff_district</lookup>
+        <name>staff_district</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>staff_address</lookup>
+        <name>staff_address</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>staff_full_name</lookup>
+        <name>staff_full_name</name>
         <update>Insert</update>
       </field>
       <field>
@@ -228,43 +247,23 @@ WHERE last_update > ?</sql>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>full_name</lookup>
-        <name>full_name</name>
+        <lookup>staff_last_update</lookup>
+        <name>staff_last_update</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>address</lookup>
-        <name>address</name>
+        <lookup>staff_email</lookup>
+        <name>staff_email</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>district</lookup>
-        <name>district</name>
+        <lookup>staff_last_name</lookup>
+        <name>staff_last_name</name>
         <update>Insert</update>
       </field>
       <field>
-        <lookup>postal_code</lookup>
-        <name>postal_code</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>phone</lookup>
-        <name>phone</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>location</lookup>
-        <name>location</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>city</lookup>
-        <name>city</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>country</lookup>
-        <name>country</name>
+        <lookup>staff_first_name</lookup>
+        <name>staff_first_name</name>
         <update>Insert</update>
       </field>
       <key>
@@ -291,7 +290,7 @@ WHERE last_update > ?</sql>
     </GUI>
   </transform>
   <transform>
-    <name>Remove Fields</name>
+    <name>Drop Fields</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -303,46 +302,60 @@ WHERE last_update > ?</sql>
     </partitioning>
     <fields>
       <field>
-        <name>staff_id</name>
-      </field>
-      <field>
-        <name>first_name</name>
-      </field>
-      <field>
-        <name>last_name</name>
-      </field>
-      <field>
-        <name>email</name>
-      </field>
-      <field>
-        <name>last_update</name>
-      </field>
-      <field>
-        <name>staff_active</name>
-      </field>
-      <field>
-        <name>full_name</name>
-      </field>
-      <field>
-        <name>address</name>
-      </field>
-      <field>
-        <name>district</name>
-      </field>
-      <field>
-        <name>postal_code</name>
-      </field>
-      <field>
-        <name>phone</name>
-      </field>
-      <field>
-        <name>location</name>
+        <name>country</name>
+        <rename>staff_country</rename>
       </field>
       <field>
         <name>city</name>
+        <rename>staff_city</rename>
       </field>
       <field>
-        <name>country</name>
+        <name>location</name>
+        <rename>staff_location</rename>
+      </field>
+      <field>
+        <name>phone</name>
+        <rename>staff_phone</rename>
+      </field>
+      <field>
+        <name>postal_code</name>
+        <rename>staff_postal_code</rename>
+      </field>
+      <field>
+        <name>district</name>
+        <rename>staff_district</rename>
+      </field>
+      <field>
+        <name>address</name>
+        <rename>staff_address</rename>
+      </field>
+      <field>
+        <name>full_name</name>
+        <rename>staff_full_name</rename>
+      </field>
+      <field>
+        <name>staff_active</name>
+        <rename/>
+      </field>
+      <field>
+        <name>last_update</name>
+        <rename>staff_last_update</rename>
+      </field>
+      <field>
+        <name>email</name>
+        <rename>staff_email</rename>
+      </field>
+      <field>
+        <name>last_name</name>
+        <rename>staff_last_name</rename>
+      </field>
+      <field>
+        <name>first_name</name>
+        <rename>staff_first_name</rename>
+      </field>
+      <field>
+        <name>staff_id</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -380,8 +393,7 @@ WHERE last_update > ?</sql>
 , password
 , last_update
 FROM sakila.staff
-
-</sql>
+where last_update > ?</sql>
     <variables_active>Y</variables_active>
     <attributes/>
     <GUI>
