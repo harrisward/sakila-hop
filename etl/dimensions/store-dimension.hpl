@@ -76,10 +76,6 @@
         <rename>store_city</rename>
       </field>
       <field>
-        <name>location</name>
-        <rename>store_location</rename>
-      </field>
-      <field>
         <name>phone</name>
         <rename>store_phone</rename>
       </field>
@@ -117,7 +113,6 @@
       </field>
       <field>
         <name>store_id</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -280,7 +275,7 @@
     <connection>Sakila DWH</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <sql>SELECT COALESCE(MAX(last_update), '1970-01-01') AS max_dim_store_last_update
+    <sql>SELECT COALESCE(MAX(store_last_update), '1970-01-01') AS max_dim_store_last_update
 FROM sakila_dwh.dim_store
 </sql>
     <variables_active>N</variables_active>
@@ -322,11 +317,6 @@ FROM sakila_dwh.dim_store
       <field>
         <lookup>store_city</lookup>
         <name>store_city</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>store_location</lookup>
-        <name>store_location</name>
         <update>Insert</update>
       </field>
       <field>

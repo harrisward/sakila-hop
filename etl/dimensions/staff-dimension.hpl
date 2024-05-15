@@ -72,10 +72,6 @@
         <rename>staff_city</rename>
       </field>
       <field>
-        <name>location</name>
-        <rename>staff_location</rename>
-      </field>
-      <field>
         <name>phone</name>
         <rename>staff_phone</rename>
       </field>
@@ -97,7 +93,6 @@
       </field>
       <field>
         <name>staff_active</name>
-        <rename/>
       </field>
       <field>
         <name>last_update</name>
@@ -117,7 +112,6 @@
       </field>
       <field>
         <name>staff_id</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -275,6 +269,7 @@ FROM sakila_dwh.dim_staff</sql>
     <fields>
       <date>
         <from>date_from</from>
+        <name/>
         <to>date_to</to>
       </date>
       <field>
@@ -285,11 +280,6 @@ FROM sakila_dwh.dim_staff</sql>
       <field>
         <lookup>staff_city</lookup>
         <name>staff_city</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>staff_location</lookup>
-        <name>staff_location</name>
         <update>Insert</update>
       </field>
       <field>
@@ -349,12 +339,16 @@ FROM sakila_dwh.dim_staff</sql>
       <return>
         <creation_method>tablemax</creation_method>
         <name>staff_tk</name>
+        <rename/>
         <version>version</version>
       </return>
     </fields>
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
+    <schema/>
+    <sequence/>
+    <start_date_field_name/>
     <table>dim_staff</table>
     <update>Y</update>
     <useBatch>N</useBatch>

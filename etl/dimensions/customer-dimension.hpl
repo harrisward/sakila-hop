@@ -57,41 +57,6 @@
     </hop>
   </order>
   <transform>
-    <name>Customers</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Sakila Source</connection>
-    <execute_each_row>N</execute_each_row>
-    <limit>0</limit>
-    <lookup>Max Date</lookup>
-    <sql>SELECT
-  customer_id
-, store_id
-, first_name
-, last_name
-, email
-, address_id
-, active
-, create_date
-, last_update
-FROM sakila.customer
-WHERE last_update > ?
-</sql>
-    <variables_active>Y</variables_active>
-    <attributes/>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>Cleanup</name>
     <type>SelectValues</type>
     <description/>
@@ -118,10 +83,6 @@ WHERE last_update > ?
       <field>
         <name>city</name>
         <rename>customer_city</rename>
-      </field>
-      <field>
-        <name>location</name>
-        <rename>customer_location</rename>
       </field>
       <field>
         <name>phone</name>
@@ -164,6 +125,41 @@ WHERE last_update > ?
     <attributes/>
     <GUI>
       <xloc>1088</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Customers</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila Source</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <lookup>Max Date</lookup>
+    <sql>SELECT
+  customer_id
+, store_id
+, first_name
+, last_name
+, email
+, address_id
+, active
+, create_date
+, last_update
+FROM sakila.customer
+WHERE last_update > ?
+</sql>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -378,6 +374,7 @@ FROM sakila_dwh.dim_customer
     <fields>
       <date>
         <from>date_from</from>
+        <name/>
         <to>date_to</to>
       </date>
       <field>
@@ -398,11 +395,6 @@ FROM sakila_dwh.dim_customer
       <field>
         <lookup>customer_city</lookup>
         <name>customer_city</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>customer_location</lookup>
-        <name>customer_location</name>
         <update>Insert</update>
       </field>
       <field>
@@ -452,12 +444,16 @@ FROM sakila_dwh.dim_customer
       <return>
         <creation_method>tablemax</creation_method>
         <name>customer_tk</name>
+        <rename/>
         <version>version</version>
       </return>
     </fields>
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
+    <schema/>
+    <sequence/>
+    <start_date_field_name/>
     <table>dim_customer</table>
     <update>Y</update>
     <useBatch>N</useBatch>

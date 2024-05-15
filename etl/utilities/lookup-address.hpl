@@ -159,6 +159,7 @@
     <fields>
       <field>
         <name>address_id</name>
+        <rename/>
       </field>
       <field>
         <name>new_address</name>
@@ -166,30 +167,35 @@
       </field>
       <field>
         <name>address2</name>
+        <rename/>
       </field>
       <field>
         <name>district</name>
+        <rename/>
       </field>
       <field>
         <name>city_id</name>
+        <rename/>
       </field>
       <field>
         <name>postal_code</name>
+        <rename/>
       </field>
       <field>
         <name>phone</name>
-      </field>
-      <field>
-        <name>location</name>
+        <rename/>
       </field>
       <field>
         <name>city</name>
+        <rename/>
       </field>
       <field>
         <name>country_id</name>
+        <rename/>
       </field>
       <field>
         <name>country</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -290,12 +296,6 @@
         <rename>phone</rename>
         <trim_type>none</trim_type>
         <type>String</type>
-      </value>
-      <value>
-        <name>location</name>
-        <rename>location</rename>
-        <trim_type>none</trim_type>
-        <type>Binary</type>
       </value>
     </lookup>
     <attributes/>
