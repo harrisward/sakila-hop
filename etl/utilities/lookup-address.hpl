@@ -159,7 +159,6 @@
     <fields>
       <field>
         <name>address_id</name>
-        <rename/>
       </field>
       <field>
         <name>new_address</name>
@@ -167,35 +166,27 @@
       </field>
       <field>
         <name>address2</name>
-        <rename/>
       </field>
       <field>
         <name>district</name>
-        <rename/>
       </field>
       <field>
         <name>city_id</name>
-        <rename/>
       </field>
       <field>
         <name>postal_code</name>
-        <rename/>
       </field>
       <field>
         <name>phone</name>
-        <rename/>
       </field>
       <field>
         <name>city</name>
-        <rename/>
       </field>
       <field>
         <name>country_id</name>
-        <rename/>
       </field>
       <field>
         <name>country</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -258,40 +249,48 @@
         <condition>=</condition>
         <field>address_id</field>
         <name>address_id</name>
+        <name2/>
       </key>
-      <schema>sakila</schema>
+      <orderby/>
+      <schema/>
       <table>address</table>
       <value>
+        <default/>
         <name>address</name>
         <rename>address</rename>
         <trim_type>none</trim_type>
         <type>String</type>
       </value>
       <value>
+        <default/>
         <name>address2</name>
         <rename>address2</rename>
         <trim_type>none</trim_type>
         <type>String</type>
       </value>
       <value>
+        <default/>
         <name>district</name>
         <rename>district</rename>
         <trim_type>none</trim_type>
         <type>String</type>
       </value>
       <value>
+        <default/>
         <name>city_id</name>
         <rename>city_id</rename>
         <trim_type>none</trim_type>
         <type>Integer</type>
       </value>
       <value>
+        <default/>
         <name>postal_code</name>
         <rename>postal_code</rename>
         <trim_type>none</trim_type>
         <type>String</type>
       </value>
       <value>
+        <default/>
         <name>phone</name>
         <rename>phone</rename>
         <trim_type>none</trim_type>
@@ -326,16 +325,20 @@
         <condition>=</condition>
         <field>city_id</field>
         <name>city_id</name>
+        <name2/>
       </key>
-      <schema>sakila</schema>
+      <orderby/>
+      <schema/>
       <table>city</table>
       <value>
+        <default/>
         <name>city</name>
         <rename>city</rename>
         <trim_type>none</trim_type>
         <type>String</type>
       </value>
       <value>
+        <default/>
         <name>country_id</name>
         <rename>country_id</rename>
         <trim_type>none</trim_type>
@@ -370,10 +373,13 @@
         <condition>=</condition>
         <field>country_id</field>
         <name>country_id</name>
+        <name2/>
       </key>
-      <schema>sakila</schema>
+      <orderby/>
+      <schema/>
       <table>country</table>
       <value>
+        <default/>
         <name>country</name>
         <rename>country</rename>
         <trim_type>none</trim_type>

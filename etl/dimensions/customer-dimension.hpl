@@ -22,11 +22,11 @@
   <order>
     <hop>
       <from>Max Date</from>
-      <to>Customers</to>
+      <to>Customer</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Customers</from>
+      <from>Customer</from>
       <to>Map Address</to>
       <enabled>Y</enabled>
     </hop>
@@ -74,7 +74,6 @@
       </field>
       <field>
         <name>customer_active</name>
-        <rename/>
       </field>
       <field>
         <name>country</name>
@@ -118,7 +117,6 @@
       </field>
       <field>
         <name>customer_id</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -129,7 +127,7 @@
     </GUI>
   </transform>
   <transform>
-    <name>Customers</name>
+    <name>Customer</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -153,7 +151,7 @@
 , active
 , create_date
 , last_update
-FROM sakila.customer
+FROM customer
 WHERE last_update > ?
 </sql>
     <variables_active>Y</variables_active>
@@ -348,7 +346,7 @@ WHERE last_update > ?
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT COALESCE(MAX(customer_last_update), '1970-01-01') AS max_dim_customer_last_update
-FROM sakila_dwh.dim_customer
+FROM dim_customer
 </sql>
     <variables_active>N</variables_active>
     <attributes/>
@@ -374,7 +372,6 @@ FROM sakila_dwh.dim_customer
     <fields>
       <date>
         <from>date_from</from>
-        <name/>
         <to>date_to</to>
       </date>
       <field>
@@ -444,16 +441,12 @@ FROM sakila_dwh.dim_customer
       <return>
         <creation_method>tablemax</creation_method>
         <name>customer_tk</name>
-        <rename/>
         <version>version</version>
       </return>
     </fields>
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
-    <schema/>
-    <sequence/>
-    <start_date_field_name/>
     <table>dim_customer</table>
     <update>Y</update>
     <useBatch>N</useBatch>

@@ -1,30 +1,25 @@
 {
   "rdbms": {
-    "MYSQL": {
+    "POSTGRESQL": {
       "databaseName": "sakila_dwh",
-      "pluginId": "MYSQL",
+      "pluginId": "POSTGRESQL",
       "accessType": 0,
-      "hostname": "${SAKILA_DWH_HOSTNAME}",
-      "password": "${SAKILA_DWH_PASSWORD}",
-      "pluginName": "MySQL",
-      "port": "${SAKILA_DWH_PORT}",
-      "driverClassName": "Mysql 8+",
+      "hostname": "localhost",
+      "password": "Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde",
+      "pluginName": "PostgreSQL",
+      "port": "5432",
       "attributes": {
         "SUPPORTS_TIMESTAMP_DATA_TYPE": "Y",
-        "STREAM_RESULTS": "N",
-        "EXTRA_OPTION_MYSQL.useCursorFetch": "true",
-        "EXTRA_OPTION_MYSQL.defaultFetchSize": "500",
+        "QUOTE_ALL_FIELDS": "N",
+        "SUPPORTS_BOOLEAN_DATA_TYPE": "Y",
         "FORCE_IDENTIFIERS_TO_LOWERCASE": "N",
         "PRESERVE_RESERVED_WORD_CASE": "Y",
-        "FORCE_IDENTIFIERS_TO_UPPERCASE": "N",
-        "QUOTE_ALL_FIELDS": "N",
-        "EXTRA_OPTION_MYSQL.zeroDateTimeBehaviorValue": "CONVERT_TO_NULL",
-        "SUPPORTS_BOOLEAN_DATA_TYPE": "Y",
         "SQL_CONNECT": "",
+        "FORCE_IDENTIFIERS_TO_UPPERCASE": "N",
         "PREFERRED_SCHEMA_NAME": ""
       },
       "manualUrl": "",
-      "username": "${SAKILA_DWH_USERNAME}"
+      "username": "sakila"
     }
   },
   "name": "Sakila DWH"
