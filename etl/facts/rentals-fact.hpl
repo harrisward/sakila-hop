@@ -68,7 +68,7 @@
     <hop>
       <from>Date TKs</from>
       <to>Rentals Fact</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Lookup Store TK</from>
@@ -81,6 +81,43 @@
       <enabled>Y</enabled>
     </hop>
   </order>
+  <transform>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <connection>Sakila DWH</connection>
+    <lookup>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <fail_on_multiple>N</fail_on_multiple>
+      <key>
+        <condition>=</condition>
+        <field>film_id</field>
+        <name>film_id</name>
+      </key>
+      <table>dim_film</table>
+      <value>
+        <name>film_tk</name>
+        <rename>film_tk</rename>
+        <trim_type>none</trim_type>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <GUI>
+      <xloc>1248</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
   <transform>
     <name>Date TKs</name>
     <type>SelectValues</type>
@@ -235,7 +272,6 @@
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
-    <schema>sakila_dwh</schema>
     <table>dim_customer</table>
     <update>N</update>
     <useBatch>N</useBatch>
@@ -319,7 +355,6 @@
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
-    <schema>sakila_dwh</schema>
     <table>dim_staff</table>
     <update>N</update>
     <useBatch>N</useBatch>
@@ -362,7 +397,6 @@
     <max_year>2199</max_year>
     <min_year>1900</min_year>
     <preload_cache>N</preload_cache>
-    <schema>sakila_dwh</schema>
     <table>dim_store</table>
     <update>N</update>
     <useBatch>N</useBatch>
@@ -495,7 +529,7 @@
 , return_date
 , staff_id
 , last_update
-FROM sakila.rental
+FROM rental
 </sql>
     <variables_active>N</variables_active>
     <attributes/>
@@ -522,6 +556,7 @@ FROM sakila.rental
         <condition>=</condition>
         <field>rental_id</field>
         <name>rental_id</name>
+        <name2/>
       </key>
       <schema/>
       <table>fact_rentals</table>
@@ -575,47 +610,6 @@ FROM sakila.rental
     <attributes/>
     <GUI>
       <xloc>1728</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <connection>Sakila DWH</connection>
-    <lookup>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <fail_on_multiple>N</fail_on_multiple>
-      <key>
-        <condition>=</condition>
-        <field>film_id</field>
-        <name>film_id</name>
-        <name2/>
-      </key>
-      <orderby/>
-      <schema/>
-      <table>dim_film</table>
-      <value>
-        <default/>
-        <name>film_tk</name>
-        <rename>film_tk</rename>
-        <trim_type>none</trim_type>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <GUI>
-      <xloc>1248</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
