@@ -484,11 +484,9 @@
       </field>
       <field>
         <name>film_id</name>
-        <rename/>
       </field>
       <field>
         <name>film_release_year</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -574,7 +572,7 @@
 , rating
 , special_features
 , last_update
-FROM sakila.film
+FROM film
 </sql>
     <variables_active>N</variables_active>
     <attributes/>
@@ -637,7 +635,6 @@ where fc.film_id = ?</sql>
         <field>actor_id</field>
         <name>actor_id</name>
       </key>
-      <schema>sakila_dwh</schema>
       <table>dim_actor</table>
       <value>
         <name>actor_tk</name>
@@ -706,7 +703,6 @@ where fa.film_id = ? </sql>
         <field>language_id</field>
         <name>language_id</name>
       </key>
-      <schema>sakila</schema>
       <table>language</table>
       <value>
         <name>name</name>
@@ -1132,11 +1128,13 @@ where fa.film_id = ? </sql>
         <condition>=</condition>
         <field>film_tk</field>
         <name>film_tk</name>
+        <name2/>
       </key>
       <key>
         <condition>=</condition>
         <field>actor_tk</field>
         <name>actor_tk</name>
+        <name2/>
       </key>
       <schema/>
       <table>dim_film_actor_bridge</table>

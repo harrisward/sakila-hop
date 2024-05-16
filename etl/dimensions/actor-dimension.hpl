@@ -45,6 +45,11 @@
       <to>Full Name</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Actor 2</from>
+      <to>Lowercase Names</to>
+      <enabled>N</enabled>
+    </hop>
   </order>
   <transform>
     <name>Actor</name>
@@ -66,13 +71,40 @@
 , first_name
 , last_name
 , last_update
-FROM sakila.actor
+FROM actor
 where last_update > ?</sql>
     <variables_active>Y</variables_active>
     <attributes/>
     <GUI>
       <xloc>288</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Actor 2</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Sakila Source</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT
+  actor_id
+, first_name
+, last_name
+, last_update
+FROM actor</sql>
+    <variables_active>N</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>352</yloc>
     </GUI>
   </transform>
   <transform>
@@ -154,6 +186,51 @@ where last_update > ?</sql>
     </GUI>
   </transform>
   <transform>
+    <name>Lowercase Names</name>
+    <type>StringOperations</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>first_name</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>lower</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>yes</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+      <field>
+        <in_stream_name>last_name</in_stream_name>
+        <out_stream_name/>
+        <trim_type>none</trim_type>
+        <lower_upper>lower</lower_upper>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>yes</init_cap>
+        <mask_xml>none</mask_xml>
+        <digits>none</digits>
+        <remove_special_characters>none</remove_special_characters>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>Max Date</name>
     <type>TableInput</type>
     <description/>
@@ -168,8 +245,8 @@ where last_update > ?</sql>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT COALESCE(MAX(actor_last_update), '1970-01-01') AS max_dim_actor_last_update
-FROM sakila_dwh.dim_actor</sql>
-    <variables_active>Y</variables_active>
+FROM dim_actor</sql>
+    <variables_active>N</variables_active>
     <attributes/>
     <GUI>
       <xloc>128</xloc>
@@ -235,51 +312,6 @@ FROM sakila_dwh.dim_actor</sql>
     <attributes/>
     <GUI>
       <xloc>928</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Lowercase Names</name>
-    <type>StringOperations</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>first_name</in_stream_name>
-        <out_stream_name/>
-        <trim_type>none</trim_type>
-        <lower_upper>lower</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>yes</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
-      </field>
-      <field>
-        <in_stream_name>last_name</in_stream_name>
-        <out_stream_name/>
-        <trim_type>none</trim_type>
-        <lower_upper>lower</lower_upper>
-        <padding_type>none</padding_type>
-        <pad_char/>
-        <pad_len/>
-        <init_cap>yes</init_cap>
-        <mask_xml>none</mask_xml>
-        <digits>none</digits>
-        <remove_special_characters>none</remove_special_characters>
-      </field>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>448</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
