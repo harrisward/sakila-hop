@@ -258,6 +258,13 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
+      <from>date-dimension.hpl</from>
+      <to>time-dimension.hpl</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>time-dimension.hpl</from>
       <to>staff-dimension.hpl</to>
       <enabled>Y</enabled>
@@ -302,27 +309,6 @@
     <hop>
       <from>rentals-fact.hpl</from>
       <to>Success</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>time-dimension.hpl</from>
-      <to>staff-dimension.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>time-dimension.hpl</from>
-      <to>staff-dimension.hpl</to>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>date-dimension.hpl</from>
-      <to>time-dimension.hpl</to>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
