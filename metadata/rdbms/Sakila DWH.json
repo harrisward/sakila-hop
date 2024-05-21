@@ -4,10 +4,10 @@
       "databaseName": "sakila_dwh",
       "pluginId": "POSTGRESQL",
       "accessType": 0,
-      "hostname": "localhost",
-      "password": "Encrypted 2be98afc86aa7f2e4bb18bd63c99dbdde",
+      "hostname": "${SAKILA_DWH_HOSTNAME}",
+      "password": "${SAKILA_DWH_PASSWORD}",
       "pluginName": "PostgreSQL",
-      "port": "5432",
+      "port": "${SAKILA_DWH_PORT}",
       "attributes": {
         "SUPPORTS_TIMESTAMP_DATA_TYPE": "Y",
         "QUOTE_ALL_FIELDS": "N",
@@ -19,7 +19,7 @@
         "PREFERRED_SCHEMA_NAME": ""
       },
       "manualUrl": "",
-      "username": "sakila"
+      "username": "${SAKILA_DWH_USERNAME}"
     }
   },
   "name": "Sakila DWH"

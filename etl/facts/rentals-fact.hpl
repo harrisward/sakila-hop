@@ -561,6 +561,11 @@ FROM rental
       <schema/>
       <table>fact_rentals</table>
       <value>
+        <name>rental_id</name>
+        <rename>rental_id</rename>
+        <update>N</update>
+      </value>
+      <value>
         <name>rental_date_tk</name>
         <rename>rental_date_tk</rename>
         <update>Y</update>
